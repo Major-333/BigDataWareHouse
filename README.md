@@ -46,7 +46,8 @@
 ### ETL Project
 
 ```shell
-pip install -r requirements.txt
+$ cd ETL/
+$ pip install -r requirements.txt
 ```
 
 ## Usage
@@ -54,7 +55,8 @@ pip install -r requirements.txt
 ### ETL Project
 
 ```shell
-python run.py
+$ cd ETL/
+$ python run.py
 ```
 
 
