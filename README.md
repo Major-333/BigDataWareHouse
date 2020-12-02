@@ -41,6 +41,8 @@
 └── ...
 ```
 
+
+
 ## Requirements
 
 ### ETL Project
@@ -49,6 +51,20 @@
 $ cd ETL/
 $ pip install -r requirements.txt
 ```
+
+### Database
+
+Install docker on macOS
+
+```shell
+$ brew cask install docker
+$ brew install docker-compose
+```
+
+Install docker on others
+https://docs.docker.com/compose/install/
+
+
 
 ## Usage
 
@@ -59,4 +75,9 @@ $ cd ETL/
 $ python run.py
 ```
 
+### Database
+
+```shell
+$ docker-compose up
+```
 
