@@ -6,7 +6,7 @@
 *.tar
 
 # ignore rawData file
-*.txt
+/ETL/rawData
 
 # ignore .DS_Store
 *.DS_Store
