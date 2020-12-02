@@ -1,0 +1,21 @@
+# ignore web file
+*.html
+
+# ignore zip file
+*.zip
+*.tar
+
+# ignore rawData file
+*.txt
+
+# ignore .DS_Store
+*.DS_Store
+
+# other
+*.pyc
+*.idea/
+*__pycache__/
+
+# ignore neo4j
+/neo4j/
+
