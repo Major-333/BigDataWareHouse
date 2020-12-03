@@ -19,3 +19,5 @@
 # ignore neo4j
 /neo4j/
 
+# ignore mysql
+/mysql/
