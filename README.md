@@ -10,7 +10,7 @@
 
 ### 数据仓储
 
-使用Neo4j, Mysql 和 Hive 三种类型数据库进行仓储，并进行查询性能比较。
+使用Neo4j, Mysql 和 Hive 三种仓储方式进行仓储，并进行查询性能比较。
 
 ## Folder Structure
 
