@@ -88,3 +88,20 @@ $ python run.py
 $ docker-compose up
 ```
 
+### test hive
+
+```shell
+# 进入bash
+$ docker-compose exec hive-server /bin/bash
+
+# 使用beeline客户端连接
+$ /opt/hive/bin/beeline -u jdbc:hive2://localhost:10000
+
+# 执行SQL。这两句是可以直接执行的，镜像带了example文件
+> CREATE TABLE pokes (foo INT, bar STRING);
+> LOAD DATA LOCAL INPATH '/opt/hive/examples/files/kv1.txt' OVERWRITE INTO TABLE pokes;
+
+# 查询
+> select * from pokes;
+```
+
