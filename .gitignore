@@ -21,3 +21,6 @@
 
 # ignore mysql
 /mysql/
+
+# ignore hive
+/hive/
