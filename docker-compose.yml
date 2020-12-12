@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   neo4j:
     image: neo4j:4.0.3
@@ -13,14 +13,14 @@ services:
       - ./neo4j/import:/import
       - ./neo4j/logs:/logs
       - ./neo4j/plugins:/plugins
-    environment: 
+    environment:
       # Raise memory limits
       - NEO4J_dbms_memory_pagecache_size=1G
       - NEO4J_dbms.memory.heap.initial_size=1G
       - NEO4J_dbms_memory_heap_max__size=1G
   db:
     image: mysql:8
-    container_name: mysql-db 
+    container_name: mysql-db
     restart: unless-stopped
     ports:
       - 13306:3306
@@ -30,8 +30,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: your_password
-    command: 
-      mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
   # Hive配置:
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
@@ -40,7 +39,7 @@ services:
     environment:
       - CLUSTER_NAME=test
     env_file:
-      - ./hadoop-hive.env
+      - ./hive/hadoop-hive.env
     ports:
       - "50070:50070"
   datanode:
@@ -48,7 +47,7 @@ services:
     volumes:
       - ./hive/datanode:/hadoop/dfs/data
     env_file:
-      - ./hadoop-hive.env
+      - ./hive/hadoop-hive.env
     environment:
       SERVICE_PRECONDITION: "namenode:50070"
     ports:
@@ -56,7 +55,7 @@ services:
   hive-server:
     image: bde2020/hive:2.3.2-postgresql-metastore
     env_file:
-      - ./hadoop-hive.env
+      - ./hive/hadoop-hive.env
     environment:
       HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
       SERVICE_PRECONDITION: "hive-metastore:9083"
@@ -65,7 +64,7 @@ services:
   hive-metastore:
     image: bde2020/hive:2.3.2-postgresql-metastore
     env_file:
-      - ./hadoop-hive.env
+      - ./hive/hadoop-hive.env
     command: /opt/hive/bin/hive --service metastore
     environment:
       SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
