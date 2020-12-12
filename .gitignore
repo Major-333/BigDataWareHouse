@@ -5,8 +5,9 @@
 *.zip
 *.tar
 
-# ignore rawData file
+# ignore data file
 /ETL/rawData
+/ETL/processedData
 
 # ignore .DS_Store
 *.DS_Store
