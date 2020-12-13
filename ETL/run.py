@@ -1,7 +1,8 @@
 import argparse
 from utils.neo4jPreprocess.csvGenerate import CsvGenerate
 from extract.movieExtract import MovieExtract
-
+from extract.reviewExtract import ReviewExtract
+import pandas as pd
 
 def get_args():
 
@@ -9,12 +10,14 @@ def get_args():
                                                  'Transform data into the files needed for each database entry, '
                                                  'Load the processed data. ',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--web-path', type=str, default='./rawData/webPages/',
+    parser.add_argument('--web_path', type=str, default='./rawData/webPages/',
                         help='path of web pages dir', dest='page_dir_path')
-    parser.add_argument('--movie-path', type=str, default='./rawData/movies.txt',
+    parser.add_argument('--movie_path', type=str, default='./rawData/movies.txt',
                         help='path of movies.txt', dest='raw_data_path')
-    parser.add_argument('--uf-path', type=str, default='./processedData/component_mapping.pickle',
-                        help='path of movies.txt', dest='uf_path')
+    parser.add_argument('--uf_path', type=str, default='./processedData/component_mapping.pickle',
+                        help='path of union find data', dest='uf_path')
+    parser.add_argument('-e', '--extract', nargs='?', help='extract review data from movie.txt')
+
     return parser.parse_args()
 
 
@@ -25,9 +28,12 @@ if __name__ == '__main__':
     print(args.raw_data_path)
     print(args.uf_path)
 
-    a = CsvGenerate()
-    a.greeting()
-
-    # movie_extract = MovieExtract
-    # movie_extract.run()
-
+    if args.extract:
+        print('will extract review data from ' + args.raw_data_path)
+        test = ReviewExtract(args.raw_data_path, args.uf_path)
+        test.run()
+    try:
+        df = pd.read_csv('./processedData/reviews.csv')
+        print('[review rows num]:', df.size)
+    except _:
+        print('review data needs to be extracted first')
