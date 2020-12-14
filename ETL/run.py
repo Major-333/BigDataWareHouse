@@ -1,8 +1,8 @@
 import argparse
-from utils.neo4jPreprocess.csvGenerate import CsvGenerate
 from extract.movieExtract import MovieExtract
 from extract.reviewExtract import ReviewExtract
 import pandas as pd
+
 
 def get_args():
 
@@ -16,8 +16,10 @@ def get_args():
                         help='path of movies.txt', dest='raw_data_path')
     parser.add_argument('--uf_path', type=str, default='./processedData/component_mapping.pickle',
                         help='path of union find data', dest='uf_path')
-    parser.add_argument('-e', '--extract', nargs='?', help='extract review data from movie.txt')
-
+    parser.add_argument('--label_path', type=str, default='./processedData/TODO',  # TODO
+                        help='path of movie label', dest='label_path')
+    parser.add_argument('--review_extract', nargs='?', help='extract review data from movie.txt')
+    parser.add_argument('--movie_extract', nargs='?', help='extract movie data from web pages')
     return parser.parse_args()
 
 
@@ -28,10 +30,15 @@ if __name__ == '__main__':
     print(args.raw_data_path)
     print(args.uf_path)
 
-    if args.extract:
+    if args.review_extract:
         print('will extract review data from ' + args.raw_data_path)
-        test = ReviewExtract(args.raw_data_path, args.uf_path)
-        test.run()
+        review_extract = ReviewExtract(args.raw_data_path, args.uf_path)
+        review_extract.run()
+    if args.movie_extract or True:
+        print('will extract movie data from ' + args.page_dir_path)
+        movie_extract = MovieExtract(args.page_dir_path, args.uf_path)
+        movie_extract.run()
+
     try:
         df = pd.read_csv('./processedData/reviews.csv')
         print('[review rows num]:', df.size)
