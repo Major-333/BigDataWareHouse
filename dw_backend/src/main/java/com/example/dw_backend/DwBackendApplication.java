@@ -1,13 +1,13 @@
-package com.example.datawarehouse;
+package com.example.dw_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DatawarehouseApplication {
+public class DwBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DatawarehouseApplication.class, args);
+		SpringApplication.run(DwBackendApplication.class, args);
 	}
 
 }
