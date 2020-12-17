@@ -62,18 +62,17 @@ class MovieExtract:
                             elif 'Director' in key:
                                 self.get_director(node)
                     except :
-                        print('[index]:', index, ' except')
-
-                        # 可能是第二种页面类型 换解析方法
-                        # TODO:
+                        # print('[index]:', index, ' except')
+                        # TODO: 可能是第二种页面类型 换解析方法
                         pass
                     finally:
                         self.add_movie()
-                if index % 100 == 0:
+                if index % 1000 == 0:
+                    print('[index]:', index)
+                if index % 10000 == 0:
                     self.movie_df.to_csv(self.target_path, mode='a', index=False, header=False)
                     self.init_movie_df()
-                if index > 1300:
-                    break
+            self.movie_df.to_csv(self.target_path, mode='a', index=False, header=False)
             break
 
     def get_actors(self, node, page_type=1):

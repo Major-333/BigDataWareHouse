@@ -1,5 +1,25 @@
 version: "3"
 services:
+  app:
+    restart: always
+    build: ./app
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - ~/.m2:/root/.m2
+    ports:
+      - 5005:5005
+      - 18080:8080
+    command: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+    depends_on:
+      - db
+      - neo4j
+      - namenode
+      - datanode
+      - hive-server
+      - hive-metastore
+      - hive-metastore-postgresql
+      - presto-coordinator
   neo4j:
     image: neo4j:4.0.3
     container_name: neo4j-db
