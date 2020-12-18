@@ -7,14 +7,14 @@ import javax.persistence.*;
  * 情感分数表
  */
 @Entity
-@Table(name = "pn_score")
-@org.hibernate.annotations.Table(appliesTo = "pn_score", comment = "情感评分表")
-public class PNScore {
+@Table(name = "emotion_score")
+@org.hibernate.annotations.Table(appliesTo = "emotion_score", comment = "情感评分表")
+public class EmotionScore {
     @Id
     @GeneratedValue
-    private int PNScoreId;
+    private int emotionScoreId;
     @Column(nullable = true)
-    private double PNScore;
+    private double emotionScore;
     @Column(nullable = true)
     private int count;
 }
