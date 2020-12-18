@@ -20,7 +20,6 @@ public class ActorMovie {
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
 
-    @Column(columnDefinition = "comment '参演过的电影数量")
     private int movieCount;
 
 
