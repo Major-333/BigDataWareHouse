@@ -1,4 +1,4 @@
-package com.example.dw_backend.Entity;
+package com.example.dw_backend.model.mysql;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

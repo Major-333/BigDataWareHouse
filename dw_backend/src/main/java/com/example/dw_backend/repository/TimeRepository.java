@@ -1,6 +1,6 @@
-package com.example.dw_backend.Interface;
+package com.example.dw_backend.repository;
 
-import com.example.dw_backend.Entity.Time;
+import com.example.dw_backend.model.mysql.Time;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TimeRepository extends JpaRepository<Time, Long> {

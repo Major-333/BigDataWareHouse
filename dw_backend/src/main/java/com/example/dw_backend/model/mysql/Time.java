@@ -1,6 +1,4 @@
-package com.example.dw_backend.Entity;
-
-import com.sun.istack.Nullable;
+package com.example.dw_backend.model.mysql;
 
 import javax.persistence.*;
 

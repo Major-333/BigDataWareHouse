@@ -1,7 +1,6 @@
-package com.example.dw_backend.Entity;
+package com.example.dw_backend.model.mysql;
 
 import javax.persistence.*;
-import javax.persistence.criteria.Fetch;
 
 /**
  * 电影标签实体类
