@@ -31,4 +31,5 @@ public class Movie {
 
     @ManyToOne
     private Director director;
+
 }

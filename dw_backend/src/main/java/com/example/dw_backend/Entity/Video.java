@@ -14,7 +14,16 @@ import javax.persistence.Id;
 public class Video {
     @Id
     @GeneratedValue
-    private int video_id;
+    private int videoId;
+
     @Column(nullable = true)
     private String videoType;
+
+    public int getVideoId() {
+        return videoId;
+    }
+
+    public String getVideoType() {
+        return videoType;
+    }
 }

@@ -35,4 +35,40 @@ public class Review {
 
     @Lob
     private String text;
+
+    public int getId() {
+        return id;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public int getDown() {
+        return down;
+    }
+
+    public int getUp() {
+        return up;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

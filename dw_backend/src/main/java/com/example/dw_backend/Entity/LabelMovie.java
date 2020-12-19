@@ -23,4 +23,20 @@ public class LabelMovie {
 
     private int movieCount;
 
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public int getMovieCount() {
+        return movieCount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getLabelName() {
+        return labelName;
+    }
+
 }

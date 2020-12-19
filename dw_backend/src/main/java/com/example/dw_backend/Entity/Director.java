@@ -16,7 +16,21 @@ public class Director {
     @GeneratedValue
     private int directorId;
     @Column(nullable = true)
-    private String director_name;
+    private String directorName;
     @Column(nullable = true)
-    private String movie_count;
+    private String movieCount;
+
+    public int getDirectorId() {
+        return directorId;
+    }
+
+    public String getDirectorName() {
+        return directorName;
+    }
+
+    public String getMovieCount() {
+        return movieCount;
+    }
+
+
 }

@@ -22,5 +22,19 @@ public class ActorMovie {
 
     private int movieCount;
 
+    public Movie getMovie() {
+        return movie;
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getActorName() {
+        return actorName;
+    }
+
+    public int getMovieCount() {
+        return movieCount;
+    }
 }

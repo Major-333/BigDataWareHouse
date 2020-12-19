@@ -15,12 +15,16 @@ public class Time {
     @Id
     @GeneratedValue
     private int timeId;
+
     @Column(nullable = true)
     private int year;
+
     @Column(nullable = true)
     private int month;
+
     @Column(nullable = true)
     private int day;
+
     @Column(nullable = true)
     private int season;
 

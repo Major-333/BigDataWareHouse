@@ -13,8 +13,22 @@ public class EmotionScore {
     @Id
     @GeneratedValue
     private int emotionScoreId;
+
     @Column(nullable = true)
     private double emotionScore;
+
     @Column(nullable = true)
     private int count;
+
+    public double getEmotionScore() {
+        return emotionScore;
+    }
+
+    public int getEmotionScoreId() {
+        return emotionScoreId;
+    }
+
+    public int getCount() {
+        return count;
+    }
 }

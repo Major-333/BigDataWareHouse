@@ -15,8 +15,24 @@ public class Score {
     @Id
     @GeneratedValue
     private int scoreId;
+
     @Column(nullable = true)
     private double score;
+
     @Column(nullable = true)
     private int count;
+
+    public double getScore() {
+        return score;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getScoreId() {
+        return scoreId;
+    }
+
+
 }
