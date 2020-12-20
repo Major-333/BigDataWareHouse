@@ -1,6 +1,8 @@
 import argparse
 from extract.movieExtract import MovieExtract
 from extract.reviewExtract import ReviewExtract
+from transform.mysqlTransform.movieTransform import MovieTransform
+from transform.mysqlTransform.reviewTransform import ReviewTransform
 import pandas as pd
 
 
@@ -34,7 +36,7 @@ if __name__ == '__main__':
         print('will extract review data from ' + args.raw_data_path)
         review_extract = ReviewExtract(args.raw_data_path, args.uf_path)
         review_extract.run()
-    if args.movie_extract or True:
+    if args.movie_extract:
         print('will extract movie data from ' + args.page_dir_path)
         movie_extract = MovieExtract(args.page_dir_path, args.uf_path)
         movie_extract.run()
@@ -44,3 +46,7 @@ if __name__ == '__main__':
         print('[review rows num]:', df.size)
     except _:
         print('review data needs to be extracted first')
+
+    review_transform = ReviewTransform()
+    movie_transform = MovieTransform()
+
