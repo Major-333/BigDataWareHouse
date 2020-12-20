@@ -1,3 +1,4 @@
+import csv
 import os
 import pickle
 from lxml import etree
@@ -104,7 +105,7 @@ class MovieExtract:
          从一个网页中抽取导演信息
         """
         if page_type == 1:
-            self.movie_dict['director'] = node.xpath('span/span[2]/text()')[0].strip()
+            self.movie_dict['director'] = node.xpath('span/span[2]/text()')[0].strip().strip('\"').split(',')
         elif page_type == 2:
             pass
 
@@ -164,3 +165,4 @@ class MovieExtract:
         """
         self.movie_df.loc[self.movie_df.size] = self.movie_dict
         self.movie_dict = {}
+
