@@ -1,3 +1,4 @@
+import csv
 import os
 import pickle
 from lxml import etree
@@ -62,18 +63,17 @@ class MovieExtract:
                             elif 'Director' in key:
                                 self.get_director(node)
                     except :
-                        print('[index]:', index, ' except')
-
-                        # 可能是第二种页面类型 换解析方法
-                        # TODO:
+                        # print('[index]:', index, ' except')
+                        # TODO: 可能是第二种页面类型 换解析方法
                         pass
                     finally:
                         self.add_movie()
-                if index % 100 == 0:
+                if index % 1000 == 0:
+                    print('[index]:', index)
+                if index % 10000 == 0:
                     self.movie_df.to_csv(self.target_path, mode='a', index=False, header=False)
                     self.init_movie_df()
-                if index > 1300:
-                    break
+            self.movie_df.to_csv(self.target_path, mode='a', index=False, header=False)
             break
 
     def get_actors(self, node, page_type=1):
@@ -105,7 +105,7 @@ class MovieExtract:
          从一个网页中抽取导演信息
         """
         if page_type == 1:
-            self.movie_dict['director'] = node.xpath('span/span[2]/text()')[0].strip()
+            self.movie_dict['director'] = node.xpath('span/span[2]/text()')[0].strip().strip('\"').split(',')
         elif page_type == 2:
             pass
 
@@ -165,3 +165,4 @@ class MovieExtract:
         """
         self.movie_df.loc[self.movie_df.size] = self.movie_dict
         self.movie_dict = {}
+
