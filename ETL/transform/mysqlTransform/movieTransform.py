@@ -54,6 +54,7 @@ class MovieTransform:
         day_schema_zipped = day_schema.drop_duplicates(subset=['year', 'month', 'day'])[['year', 'month', 'day', 'p_id']].copy()
         day_schema_zipped['day_id'] = range(day_schema_zipped.shape[0])
         print(day_schema_zipped)
+
         day_schema = day_schema.merge(day_schema_zipped[['year', 'month', 'day', 'day_id']], how='outer', on=['year', 'month', 'day'])
 
         print(day_schema)
@@ -65,12 +66,14 @@ class MovieTransform:
         day_schema_zipped = day_schema_zipped.rename(columns={'p_id': 'product_id'})
         print(movie_schema)
         print(day_schema_zipped)
+        day_schema_zipped.astype({'day_id': 'Int64'})
+        movie_schema.astype({'score': 'Int64', 'emotion_score': 'Int64'})
         movie_schema = movie_schema.merge(day_schema_zipped[['product_id', 'day_id']], how='outer', on='product_id')
-        movie_schema.loc[movie_schema['score'].isnull(), 'score'] = -1
-        movie_schema.loc[movie_schema['emotion_score'].isnull(), 'emotion_score'] = -1
-        movie_schema.loc[movie_schema['day_id'].isnull(), 'day_id'] = -1
+        # movie_schema.loc[movie_schema['score'].isnull(), 'score'] = -1
+        # movie_schema.loc[movie_schema['emotion_score'].isnull(), 'emotion_score'] = -1
+        # movie_schema.loc[movie_schema['day_id'].isnull(), 'day_id'] = -1
         # movie_schema['score'].astype(int)
-        movie_schema[['score', 'emotion_score', 'day_id']] = movie_schema[['score', 'emotion_score', 'day_id']].astype(int)
+        movie_schema[['score', 'emotion_score', 'day_id']] = movie_schema[['score', 'emotion_score', 'day_id']]
         print(movie_schema)
 
         movie_schema.to_csv(os.path.join(self.schema_path, 'movie_schema'), index=False)
