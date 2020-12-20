@@ -1,11 +1,14 @@
 package com.example.dw_backend.model.mysql;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * @author xuedixuedi
  * 时间实体类
  */
+@Data
 @Entity
 @org.hibernate.annotations.Table(appliesTo = "time", comment = "日期表")
 public class Time {
@@ -26,16 +29,13 @@ public class Time {
     @Column(nullable = true)
     private int season;
 
-    protected Time() {
+    private int yearCount;
 
-    }
+    private int monthCount;
 
-    public Time(int year, int month, int day, int season) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.season = season;
-    }
+    private int dayCount;
+
+    private int seasonCount;
 
     public int getDay() {
         return day;

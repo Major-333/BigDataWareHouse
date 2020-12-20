@@ -1,5 +1,7 @@
 package com.example.dw_backend.model.mysql;
 
+import com.example.dw_backend.model.mysql.pk.LabelPK;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,16 +13,15 @@ import java.io.Serializable;
 @Entity
 @Table(name = "label_movie")
 @org.hibernate.annotations.Table(appliesTo = "label_movie", comment = "电影标签表")
-public class Label implements Serializable {
-    //为了保证两个共同id，要加这一行
-    private static final long serialVersionUID = 1L;
+public class Label {
 
-    @Id
+    @EmbeddedId
+    private LabelPK id;
+
+    @JoinColumn(name = "product_id")
+    @MapsId("productId")
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
-
-    @Id
-    private String labelName;
 
     private int movieCount;
 
@@ -30,11 +31,6 @@ public class Label implements Serializable {
 
     public int getMovieCount() {
         return movieCount;
-    }
-
-
-    public String getLabelName() {
-        return labelName;
     }
 
 }

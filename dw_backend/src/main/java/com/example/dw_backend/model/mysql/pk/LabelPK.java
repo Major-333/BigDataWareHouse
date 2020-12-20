@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
-public class ActorPK implements Serializable {
+public class LabelPK implements Serializable {
     private String productId;
-    private String actorName;
+    private String labelName;
 }

@@ -1,5 +1,7 @@
 package com.example.dw_backend.model.mysql;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.Table;
  *
  * @author xuedixuedi
  */
+@Data
 @Entity
 @Table(name = "user")
 @org.hibernate.annotations.Table(appliesTo = "user", comment = "用户表")

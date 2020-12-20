@@ -1,5 +1,9 @@
 package com.example.dw_backend.model.mysql;
 
+import com.example.dw_backend.model.mysql.pk.ActorPK;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,17 +12,18 @@ import java.io.Serializable;
  *
  * @author xuedixuedi
  */
+@Data
+@EqualsAndHashCode(exclude = {"movie"})
 @Entity
 @Table(name = "actor_movie")
 @org.hibernate.annotations.Table(appliesTo = "actor_movie", comment = "演员参演电影表")
-public class Actor implements Serializable {
+public class Actor{
 
-    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    private ActorPK id;
 
-    @Id
-    private String actorName;
-
-    @Id
+    @JoinColumn(name = "product_id")
+    @MapsId("productId")
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
 
@@ -28,10 +33,6 @@ public class Actor implements Serializable {
         return movie;
     }
 
-
-    public String getActorName() {
-        return actorName;
-    }
 
     public int getMovieCount() {
         return movieCount;
