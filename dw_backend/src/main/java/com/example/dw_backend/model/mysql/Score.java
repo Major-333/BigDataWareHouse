@@ -12,11 +12,9 @@ import javax.persistence.Id;
 @Entity
 @org.hibernate.annotations.Table(appliesTo = "score", comment = "电影评分表")
 public class Score {
+
     @Id
     @GeneratedValue
-    private int scoreId;
-
-    @Column(nullable = true)
     private double score;
 
     @Column(nullable = true)
@@ -28,10 +26,6 @@ public class Score {
 
     public int getCount() {
         return count;
-    }
-
-    public int getScoreId() {
-        return scoreId;
     }
 
 

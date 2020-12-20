@@ -16,11 +16,11 @@ import javax.persistence.Table;
 public class User {
     @Id
     @GeneratedValue
-    private int userId;
+    private String userId;
 
     private String profileName;
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 

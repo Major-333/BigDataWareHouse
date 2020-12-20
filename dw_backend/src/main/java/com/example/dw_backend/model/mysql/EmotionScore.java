@@ -10,11 +10,9 @@ import javax.persistence.*;
 @Table(name = "emotion_score")
 @org.hibernate.annotations.Table(appliesTo = "emotion_score", comment = "情感评分表")
 public class EmotionScore {
+
     @Id
     @GeneratedValue
-    private int emotionScoreId;
-
-    @Column(nullable = true)
     private double emotionScore;
 
     @Column(nullable = true)
@@ -22,10 +20,6 @@ public class EmotionScore {
 
     public double getEmotionScore() {
         return emotionScore;
-    }
-
-    public int getEmotionScoreId() {
-        return emotionScoreId;
     }
 
     public int getCount() {

@@ -1,6 +1,7 @@
 package com.example.dw_backend.model.mysql;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author xuedixuedi
@@ -23,12 +24,9 @@ public class Movie {
     private Score score;
 
     @ManyToOne
-    private Video video;
+    private Version version;
 
     @ManyToOne
     private EmotionScore emotionScore;
-
-    @ManyToOne
-    private Director director;
 
 }

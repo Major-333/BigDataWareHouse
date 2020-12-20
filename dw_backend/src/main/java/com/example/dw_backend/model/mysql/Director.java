@@ -1,9 +1,7 @@
 package com.example.dw_backend.model.mysql;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author xuedixuedi
@@ -11,18 +9,19 @@ import javax.persistence.Id;
  */
 @Entity
 @org.hibernate.annotations.Table(appliesTo = "director", comment = "导演表")
-public class Director {
+public class Director implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue
-    private int directorId;
-    @Column(nullable = true)
     private String directorName;
+
+    @Id
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Movie movie;
+
     @Column(nullable = true)
     private String movieCount;
-
-    public int getDirectorId() {
-        return directorId;
-    }
 
     public String getDirectorName() {
         return directorName;
@@ -32,5 +31,7 @@ public class Director {
         return movieCount;
     }
 
-
+    public Movie getMovie() {
+        return movie;
+    }
 }
