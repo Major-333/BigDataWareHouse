@@ -22,6 +22,8 @@ class ReviewTransform:
         user_schema = pd.DataFrame(self.raw_df['profile_name'])
         user_schema['user_id'] = self.raw_df['user_id']
         print(user_schema)
+        user_schema = user_schema.drop_duplicates(subset=['user_id'])
+        print(user_schema)
         user_schema.to_csv(os.path.join(self.schema_path, 'user_schema'), index=False)
 
     def generate_review_schema(self):
@@ -35,6 +37,7 @@ class ReviewTransform:
         score = np.array(review_schema['score'])
         score = (score - np.min(score))/(np.max(score)-np.min(score))
         review_schema['emotion_score'] = score
+        review_schema['review_id'] = range(review_schema.shape[0])
         review_schema.to_csv(os.path.join(self.schema_path, 'review_schema'), index=False)
 
         # init movie_schema
