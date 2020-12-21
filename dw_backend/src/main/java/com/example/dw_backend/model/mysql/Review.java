@@ -1,13 +1,17 @@
 package com.example.dw_backend.model.mysql;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * 评论实体类
  *
  * @author xuedixuedi
  */
+@Data
+@EqualsAndHashCode(exclude = {"user", "movie"})
 @Entity
 @Table(name = "review")
 @org.hibernate.annotations.Table(appliesTo = "review", comment = "电影评论表")
@@ -28,7 +32,9 @@ public class Review {
 
     private double score;
 
-    private LocalDateTime time;
+    private long timeStamp;
+
+    private double emotionScore;
 
     @Lob
     private String summary;
@@ -56,8 +62,8 @@ public class Review {
         return up;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public long getTimeStamp() {
+        return timeStamp;
     }
 
     public String getSummary() {
@@ -70,5 +76,9 @@ public class Review {
 
     public User getUser() {
         return user;
+    }
+
+    public double getEmotionScore() {
+        return emotionScore;
     }
 }

@@ -1,36 +1,38 @@
 package com.example.dw_backend.model.mysql;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.example.dw_backend.model.mysql.pk.DirectorPK;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author xuedixuedi
  * 导演实体类
  */
+@Data
+@EqualsAndHashCode(exclude = { "movie" })
 @Entity
 @org.hibernate.annotations.Table(appliesTo = "director", comment = "导演表")
 public class Director {
-    @Id
-    @GeneratedValue
-    private int directorId;
-    @Column(nullable = true)
-    private String directorName;
+
+    @EmbeddedId
+    private DirectorPK id;
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    @MapsId("productId")
+    private Movie movie;
+
     @Column(nullable = true)
     private String movieCount;
-
-    public int getDirectorId() {
-        return directorId;
-    }
-
-    public String getDirectorName() {
-        return directorName;
-    }
 
     public String getMovieCount() {
         return movieCount;
     }
 
-
+    public Movie getMovie() {
+        return movie;
+    }
 }

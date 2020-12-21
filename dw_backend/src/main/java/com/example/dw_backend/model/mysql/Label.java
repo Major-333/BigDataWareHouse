@@ -1,6 +1,9 @@
 package com.example.dw_backend.model.mysql;
 
+import com.example.dw_backend.model.mysql.pk.LabelPK;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 电影标签实体类
@@ -10,15 +13,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "label_movie")
 @org.hibernate.annotations.Table(appliesTo = "label_movie", comment = "电影标签表")
-public class LabelMovie {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Label {
 
+    @EmbeddedId
+    private LabelPK id;
+
+    @JoinColumn(name = "product_id")
+    @MapsId("productId")
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
-
-    private String labelName;
 
     private int movieCount;
 
@@ -28,14 +31,6 @@ public class LabelMovie {
 
     public int getMovieCount() {
         return movieCount;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getLabelName() {
-        return labelName;
     }
 
 }
