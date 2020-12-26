@@ -76,7 +76,3 @@ services:
         image: shawnzhu/prestodb:0.181
         ports:
             - "8080:8080"
-    spring:
-        image:
-        ports:
-            - "18080:8080"
