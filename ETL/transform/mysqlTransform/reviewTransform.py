@@ -42,9 +42,12 @@ class ReviewTransform:
 
         # init movie_schema
         movie_schema = review_schema.groupby('product_id')[['score', 'emotion_score']].mean().round(2).reset_index()
+        print('after group by, the size is:')
+        print(movie_schema.shape[0])
         movie_schema['score'] = (movie_schema['score'] * 100).astype(int)
         movie_schema['emotion_score'] = (movie_schema['emotion_score'] * 100).astype(int)
         print(movie_schema)
+        print(movie_schema.shape[0])
         movie_schema.to_csv(os.path.join(self.schema_path, 'movie_schema'), index=False)
 
         # generate score_schema

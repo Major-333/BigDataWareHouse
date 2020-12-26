@@ -66,8 +66,12 @@ class MovieTransform:
 
         movie_schema = pd.read_csv(os.path.join(self.schema_path, 'movie_schema'))[['product_id', 'score', 'emotion_score']]
         day_schema_zipped = day_schema_zipped.rename(columns={'p_id': 'product_id'})
-        print(movie_schema)
-        print(day_schema_zipped)
+        print('will print movie schema info')
+        print(movie_schema.shape[0])
+        print(day_schema_zipped.shape[0])
+        # test
+        print(day_schema_zipped[day_schema_zipped['product_id'].isin(movie_schema['product_id'])].shape[0])
+        # end
         day_schema_zipped = day_schema_zipped.astype({'day_id': 'Int64'})
         movie_schema = movie_schema.astype({'score': 'Int64', 'emotion_score': 'Int64'})
         print(day_schema_zipped.dtypes)
@@ -79,7 +83,7 @@ class MovieTransform:
         # movie_schema.loc[movie_schema['day_id'].isnull(), 'day_id'] = -1
         # movie_schema['score'].astype(int)
         # movie_schema[['score', 'emotion_score', 'day_id']] = movie_schema[['score', 'emotion_score', 'day_id']]
-        print(movie_schema)
+        print(movie_schema.shape[0])
 
         movie_schema.to_csv(os.path.join(self.schema_path, 'movie_schema'), index=False)
 
