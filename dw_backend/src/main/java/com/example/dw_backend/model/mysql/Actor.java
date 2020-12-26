@@ -1,22 +1,29 @@
 package com.example.dw_backend.model.mysql;
 
+import com.example.dw_backend.model.mysql.pk.ActorPK;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 演员实体类：演员与演员参演的电影
  *
  * @author xuedixuedi
  */
+@Data
+@EqualsAndHashCode(exclude = {"movie"})
 @Entity
 @Table(name = "actor_movie")
 @org.hibernate.annotations.Table(appliesTo = "actor_movie", comment = "演员参演电影表")
-public class ActorMovie {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Actor{
 
-    private String actorName;
+    @EmbeddedId
+    private ActorPK id;
 
+    @JoinColumn(name = "product_id")
+    @MapsId("productId")
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
 
@@ -26,13 +33,6 @@ public class ActorMovie {
         return movie;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getActorName() {
-        return actorName;
-    }
 
     public int getMovieCount() {
         return movieCount;
