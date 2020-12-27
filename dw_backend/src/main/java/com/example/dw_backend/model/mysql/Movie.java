@@ -27,9 +27,9 @@ public class Movie {
 
     @ManyToOne
     private Score score;
-
-    @ManyToOne
-    private Version version;
+//
+//    @ManyToOne
+//    private Version version;
 
     @ManyToOne
     private EmotionScore emotionScore;
