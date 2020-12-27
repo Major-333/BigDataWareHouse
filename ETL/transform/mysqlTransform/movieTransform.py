@@ -16,9 +16,9 @@ class MovieTransform:
 
     def generate_schemas(self):
         self.generate_day_schema()
-        # self.generate_director_schema()
-        # self.generate_actor_schema()
-        # self.generate_label_movie()
+        self.generate_director_schema()
+        self.generate_actor_schema()
+        self.generate_label_movie()
 
     def generate_day_schema(self):
         time_df = self.raw_df[['p_id', 'release_time']].copy()
@@ -58,23 +58,32 @@ class MovieTransform:
         day_schema = day_schema.merge(day_schema_zipped[['year', 'month', 'day', 'day_id']], how='outer', on=['year', 'month', 'day'])
 
         print(day_schema)
+        day_schema = day_schema.drop(['p_id'], axis=1)
+        day_schema = day_schema.drop_duplicates(subset=['day_id'])
         day_schema.to_csv(os.path.join(self.schema_path, 'day_schema'), index=False)
 
         # insert day_id into movie.csv
 
         movie_schema = pd.read_csv(os.path.join(self.schema_path, 'movie_schema'))[['product_id', 'score', 'emotion_score']]
         day_schema_zipped = day_schema_zipped.rename(columns={'p_id': 'product_id'})
-        print(movie_schema)
-        print(day_schema_zipped)
-        day_schema_zipped.astype({'day_id': 'Int64'})
-        movie_schema.astype({'score': 'Int64', 'emotion_score': 'Int64'})
+        print('will print movie schema info')
+        print(movie_schema.shape[0])
+        print(day_schema_zipped.shape[0])
+        # test
+        print(day_schema_zipped[day_schema_zipped['product_id'].isin(movie_schema['product_id'])].shape[0])
+        # end
+        day_schema_zipped = day_schema_zipped.astype({'day_id': 'Int64'})
+        movie_schema = movie_schema.astype({'score': 'Int64', 'emotion_score': 'Int64'})
+        print(day_schema_zipped.dtypes)
+        print(movie_schema.dtypes)
         movie_schema = movie_schema.merge(day_schema_zipped[['product_id', 'day_id']], how='outer', on='product_id')
+        movie_schema['title'] = None
         # movie_schema.loc[movie_schema['score'].isnull(), 'score'] = -1
         # movie_schema.loc[movie_schema['emotion_score'].isnull(), 'emotion_score'] = -1
         # movie_schema.loc[movie_schema['day_id'].isnull(), 'day_id'] = -1
         # movie_schema['score'].astype(int)
-        movie_schema[['score', 'emotion_score', 'day_id']] = movie_schema[['score', 'emotion_score', 'day_id']]
-        print(movie_schema)
+        # movie_schema[['score', 'emotion_score', 'day_id']] = movie_schema[['score', 'emotion_score', 'day_id']]
+        print(movie_schema.shape[0])
 
         movie_schema.to_csv(os.path.join(self.schema_path, 'movie_schema'), index=False)
 

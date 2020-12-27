@@ -45,8 +45,13 @@ class MovieExtract:
         for root_path, _, file_names in os.walk(self.page_dir_path):
             for index, file_name in enumerate(file_names):
                 p_id = file_name.split('.')[0][-10:]
-
-                if p_id in self.uf_dict.keys():
+                if len(p_id) != 10:
+                    continue
+                # if p_id in self.uf_dict.keys():
+                # print(p_id)
+                # print(self.uf_dict[p_id])
+                # print(sorted(self.uf_dict[p_id]))
+                if sorted(self.uf_dict[p_id])[0] == p_id:
                     self.movie_dict['p_id'] = p_id
                     self.get_labels(p_id)
                     html = etree.parse(os.path.join(root_path, file_name), etree.HTMLParser())

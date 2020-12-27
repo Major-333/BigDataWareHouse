@@ -22,26 +22,53 @@ class ReviewExtract:
         默认保存到./
         """
         self.init_uf_dict()
-        is_first_row = True  # 第一行不需要额外读取空行
         block_num = 0
-        with open(self.raw_data_path, 'r', encoding='utf-8', errors='replace') as file:
-            while is_first_row or file.readline():
-                is_first_row = False
+        with open(self.raw_data_path, 'r', encoding='iso-8859-1', errors='replace') as file:
+            while True:
+                if block_num % 5000 == 0:
+                    print('[block_num]:', block_num)
                 try:
-                    block = [file.readline().split(':')[1].strip() for i in range(8)]
+                    buffer = []
+                    tmp = file.readline()
+                    while len(buffer) < 8 and tmp:
+                        if len(buffer) == 0 and 'product/productId:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        elif len(buffer) == 1 and 'review/userId:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        elif len(buffer) == 2 and 'review/profileName:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        elif len(buffer) == 3 and 'review/helpfulness:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        elif len(buffer) == 4 and 'review/score:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        elif len(buffer) == 5 and 'review/time:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        elif len(buffer) == 6 and 'review/summary:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        elif len(buffer) == 7 and 'review/text:' in tmp:
+                            buffer.append(tmp.split(':')[1].strip())
+                        tmp = file.readline()
+                    block = buffer
                     up_vote, down_vote = block[3].split('/')
                     block[3] = up_vote
                     block.insert(4, down_vote)
                     block_num += 1
-                    if block[0] in self.uf_dict.keys():
+                    if sorted(self.uf_dict[block[0]])[0] == block[0]:
                         self.df.loc[self.df.size] = block
-                    if block_num % 1000 == 0:
-                        print('[block_num]:', block_num)
                     if block_num % 10000 == 0:
                         self.df.to_csv(self.target_path, mode='a', index=False, header=False)
                         self.init_df()
-                except _:
-                    break
+                    is_same_error = False
+                except:
+                    if not is_same_error:
+                        is_same_error = True
+                        print('in error')
+                        print(buffer)
+                        continue
+                    else:
+                        print('will break')
+                        print(buffer)
+                        break
         self.df.to_csv(self.target_path, mode='a', index=False, header=False)
 
     def init_uf_dict(self):
