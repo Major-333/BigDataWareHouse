@@ -16,11 +16,9 @@ import java.util.Map;
 public class MovieBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final DirectorRepository directorRepository;
-    private final TimeRepository timeRepository;
 
-    public MovieBootstrap(DirectorRepository directorRepository, TimeRepository timeRepository, DirectorService directorService) {
+    public MovieBootstrap(DirectorRepository directorRepository) {
         this.directorRepository = directorRepository;
-        this.timeRepository = timeRepository;
     }
 
     @Override
@@ -32,7 +30,6 @@ public class MovieBootstrap implements ApplicationListener<ContextRefreshedEvent
         List<Object> direMovieCount = directorRepository.getMovieCount("Aaron Lipstadt");
 
         long endTime = System.currentTimeMillis();    //获取结束时间
-        List<Integer> movieCount = timeRepository.getMovieCount(2001, true);
 
         System.out.println(result);
         System.out.println("程序运行时间：" + (endTime - startTime) + "ms");    //输出程序运行时间
