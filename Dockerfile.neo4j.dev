@@ -1,0 +1,12 @@
+FROM neo4j:4.0.3
+
+ENV HOME=/home/major333
+WORKDIR = /major333/workspace
+
+RUN mkdir -p /home/major333
+RUN mkdir -p /major333/workspace
+
+COPY ./neo4jscript/ /major333/script
+ENTRYPOINT [ "/major333/script/entrypoint.sh" ]
+
+CMD []
