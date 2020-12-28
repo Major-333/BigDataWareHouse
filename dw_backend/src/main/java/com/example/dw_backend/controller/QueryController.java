@@ -1,17 +1,11 @@
 package com.example.dw_backend.controller;
 
-import com.example.dw_backend.model.mysql.Director;
-import com.example.dw_backend.model.mysql.Label;
 import com.example.dw_backend.model.mysql.Movie;
-import com.example.dw_backend.service.mysql.ActorService;
-import com.example.dw_backend.service.mysql.DirectorService;
-import com.example.dw_backend.service.mysql.LabelService;
+import com.example.dw_backend.service.mysql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -29,6 +23,9 @@ public class QueryController {
     private ActorService actorService;
     @Autowired
     private LabelService labelService;
+    @Autowired
+    private MovieService movieService;
+
 
 
     /**
@@ -67,5 +64,17 @@ public class QueryController {
         return labelService.parsingLabelMovie(labelName);
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/score", method = RequestMethod.GET)
+    public List<Movie> getScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
+        return movieService.parsingScoreList(score, comparison);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/emotion", method = RequestMethod.GET)
+    public List<Movie> getEmotionScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
+        return movieService.parsingEmoScoreList(score, comparison);
+    }
 
 }
