@@ -20,7 +20,10 @@ public class Movie {
     private String productId;
 
     @Column(nullable = true)
-    private String title;
+    private String titleY;
+
+    @Column(nullable = true)
+    private int version;
 
     @ManyToOne
     private Time time;

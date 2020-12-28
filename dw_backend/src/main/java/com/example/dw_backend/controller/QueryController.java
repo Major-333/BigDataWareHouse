@@ -77,4 +77,10 @@ public class QueryController {
         return movieService.parsingEmoScoreList(score, comparison);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/title", method = RequestMethod.GET)
+    public List<Movie> getEmotionScoreMovieList(@RequestParam String title) {
+        return movieService.parsingTitleList(title);
+    }
+
 }

@@ -23,4 +23,8 @@ public class MovieService {
     public List<Movie> parsingEmoScoreList(int score, String comparison) {
         return this.movieRepository.getMovieCountByEmotion(score, comparison);
     }
+
+    public List<Movie> parsingTitleList(String title) {
+        return this.movieRepository.findAllByTitleY(title);
+    }
 }

@@ -16,4 +16,6 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     @Query(value = "call find_movie_by_emotion_score(:sco, :larger);", nativeQuery = true)
     List<Movie> getMovieCountByEmotion(@Param("sco") int score, @Param("larger") String comparison);
+
+    List<Movie> findAllByTitleY(String title);
 }
