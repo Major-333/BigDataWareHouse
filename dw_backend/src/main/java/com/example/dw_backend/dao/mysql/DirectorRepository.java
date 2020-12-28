@@ -32,4 +32,6 @@ public interface DirectorRepository extends CrudRepository<Director, Long> {
     @Query(value = "call find_actor_by_director(:dir);", nativeQuery = true)
     List<Object> getActorList(@Param("dir") String director);
 
+    List<Director> findDirectorByMovieCount(String count);
+
 }
