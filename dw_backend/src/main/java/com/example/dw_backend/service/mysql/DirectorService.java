@@ -1,6 +1,6 @@
 package com.example.dw_backend.service.mysql;
 
-import com.example.dw_backend.repository.mysql.DirectorRepository;
+import com.example.dw_backend.dao.mysql.DirectorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,17 +16,24 @@ public class DirectorService {
         this.directorRepository = directorRepository;
     }
 
-    public List<Map<String, String>> parsingDirectorMovie(String directorName) {
-        List<Map<String, String>> result = new ArrayList<>();
+    /**
+     * 把查询返回值装入键值对list
+     *
+     * @param directorName
+     * @return
+     */
+    public List<HashMap<String, String>> parsingDirectorMovie(String directorName) {
+        List<HashMap<String, String>> result = new ArrayList<>();
         List<Object> direMovieCount = directorRepository.getMovieCount(directorName);
 
         for (Object row : direMovieCount) {
             Object[] cells = (Object[]) row;
-            Map<String, String> temp1 = new HashMap<>();
-            temp1.put("director_name", cells[0].toString());
-            temp1.put("movie_count", cells[1].toString());
-            temp1.put("product_id", cells[2].toString());
-            temp1.put("emotion_score", cells[4].toString());
+            HashMap<String, String> temp1 = new HashMap<>();
+            temp1.put("directorName", String.valueOf(cells[0]));
+            temp1.put("movieCount", String.valueOf(cells[1]));
+            temp1.put("productId", String.valueOf(cells[2]));
+            temp1.put("title",String.valueOf(cells[3]));
+            temp1.put("emotionScore", String.valueOf(cells[4]));
             result.add(temp1);
         }
         return result;
