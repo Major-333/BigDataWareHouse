@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "actor_movie")
 @org.hibernate.annotations.Table(appliesTo = "actor_movie", comment = "演员参演电影表")
-public class Actor{
+public class Actor {
 
     @EmbeddedId
     private ActorPK id;
@@ -28,6 +28,10 @@ public class Actor{
     private Movie movie;
 
     private int movieCount;
+
+    public String getActorName() {
+        return id.getActorName();
+    }
 
     public Movie getMovie() {
         return movie;

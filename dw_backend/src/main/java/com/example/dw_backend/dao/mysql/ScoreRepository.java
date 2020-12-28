@@ -18,7 +18,8 @@ public interface ScoreRepository extends CrudRepository<Score, Long> {
      * @return
      */
     @Query(value = "call find_movie_count_by_score(:sco, :larger);", nativeQuery = true)
-    List<Integer> getMovieCount(@Param("sco") int score, @Param("larger") boolean large);
+    List<Integer> getMovieCount(@Param("sco") int score, @Param("larger") String large);
 
+    List<Score> findAll();
 
 }

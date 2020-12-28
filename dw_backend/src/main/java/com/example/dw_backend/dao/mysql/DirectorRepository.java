@@ -41,4 +41,6 @@ public interface DirectorRepository extends CrudRepository<Director, Long> {
     @Query(value = "call find_director_by_director(:dir);", nativeQuery = true)
     List<Object> getDirectorList(@Param("dir") String director);
 
+    List<Director> findAll();
+
 }

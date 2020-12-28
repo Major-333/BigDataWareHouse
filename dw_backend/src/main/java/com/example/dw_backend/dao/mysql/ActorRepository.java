@@ -41,4 +41,5 @@ public interface ActorRepository extends CrudRepository<Actor, Long> {
     List<Object> getActorList(@Param("act") String actor);
 
 
+    List<Actor> findAll();
 }

@@ -2,11 +2,13 @@ package com.example.dw_backend.service.mysql;
 
 import com.example.dw_backend.dao.mysql.LabelRepository;
 import com.example.dw_backend.model.mysql.Actor;
+import com.example.dw_backend.model.mysql.Director;
 import com.example.dw_backend.model.mysql.Label;
 import com.example.dw_backend.model.mysql.Movie;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -30,5 +32,19 @@ public class LabelService {
             movieList.add(label1.getMovie());
         }
         return movieList;
+    }
+
+    public HashMap<String, Integer> findAll(int limit) {
+        List<Label> directorList = this.labelRepository.findAll();
+        HashMap<String, Integer> temp1 = new HashMap<>();
+        for (int i = 0; i < directorList.size(); i++) {
+            String name = directorList.get(i).getLabelName();
+            int count = directorList.get(i).getMovieCount();
+            temp1.put(name, count);
+            if (temp1.size() >= limit) {
+                return temp1;
+            }
+        }
+        return temp1;
     }
 }

@@ -74,5 +74,19 @@ public class DirectorService {
         return result;
     }
 
+    public HashMap<String, String> findAll(int limit) {
+        List<Director> directorList = this.directorRepository.findAll();
+        HashMap<String, String> temp1 = new HashMap<>();
+        for (int i = 0; i < directorList.size(); i++) {
+            String name = directorList.get(i).getDirectorName();
+            String count = directorList.get(i).getMovieCount();
+            temp1.put(name, count);
+            if (temp1.size() >= limit) {
+                return temp1;
+            }
+        }
+        return temp1;
+    }
+
 
 }
