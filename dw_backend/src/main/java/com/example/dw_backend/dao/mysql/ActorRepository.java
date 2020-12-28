@@ -29,7 +29,16 @@ public interface ActorRepository extends CrudRepository<Actor, Long> {
      * @return
      */
     @Query(value = "call find_director_by_actor(:act);", nativeQuery = true)
-    List<Director> getDirectorList(@Param("act") String actor);
+    List<Object> getDirectorList(@Param("act") String actor);
+
+    /**
+     * 根据演员查合作过的演员
+     *
+     * @param actor
+     * @return
+     */
+    @Query(value = "call find_actor_by_actor(:act);", nativeQuery = true)
+    List<Object> getActorList(@Param("act") String actor);
 
 
 }

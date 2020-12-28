@@ -1,6 +1,7 @@
 package com.example.dw_backend.service.mysql;
 
-import com.example.dw_backend.dao.mysql.DirectorRepository;
+import com.example.dw_backend.dao.mysql.ActorRepository;
+import com.example.dw_backend.model.mysql.Actor;
 import com.example.dw_backend.model.mysql.Director;
 import com.example.dw_backend.model.mysql.Movie;
 import org.springframework.stereotype.Service;
@@ -10,39 +11,34 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class DirectorService {
-    private final DirectorRepository directorRepository;
+public class ActorService {
 
-    public DirectorService(DirectorRepository directorRepository) {
-        this.directorRepository = directorRepository;
+    private final ActorRepository actorRepository;
+
+    public ActorService(ActorRepository actorRepository) {
+        this.actorRepository = actorRepository;
     }
 
     /**
      * 把查询返回值变成MovieList类型
      *
-     * @param directorName
+     * @param actor
      * @return
      */
-    public List<Movie> parsingDirectorMovie(String directorName) {
-        List<Director> directors = directorRepository.getMovieCount(directorName);
+    public List<Movie> parsingActorMovie(String actor) {
+        List<Actor> actorList = actorRepository.getMovieCount(actor);
         List<Movie> movieList = new ArrayList<>();
-        for (Director dir : directors) {
-            movieList.add(dir.getMovie());
+        for (Actor act : actorList) {
+            movieList.add(act.getMovie());
         }
         return movieList;
     }
 
 
-    /**
-     * 返回ActorList
-     *
-     * @param director
-     * @return
-     */
-    public List<HashMap<String, String>> parsingGetActorList(String director) {
+    public List<HashMap<String, String>> parsingGetActorList(String actor) {
         HashMap<String, String> temp1 = new HashMap<>();
         List<HashMap<String, String>> result = new ArrayList<>();
-        List<Object> actorList = this.directorRepository.getActorList(director);
+        List<Object> actorList = this.actorRepository.getActorList(actor);
 
         for (Object row : actorList) {
             Object[] cells = (Object[]) row;
@@ -53,17 +49,10 @@ public class DirectorService {
         return result;
     }
 
-
-    /**
-     * 返回directorList
-     *
-     * @param director
-     * @return
-     */
-    public List<HashMap<String, String>> parsingGetDirectorList(String director) {
+    public List<HashMap<String, String>> parsingGetDirectorList(String actor) {
         HashMap<String, String> temp1 = new HashMap<>();
         List<HashMap<String, String>> result = new ArrayList<>();
-        List<Object> directorList = this.directorRepository.getDirectorList(director);
+        List<Object> directorList = this.actorRepository.getDirectorList(actor);
 
         for (Object row : directorList) {
             Object[] cells = (Object[]) row;
