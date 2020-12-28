@@ -1,7 +1,10 @@
 version: "3"
 services:
     neo4j:
-        image: neo4j:4.0.3
+#        image: neo4j:4.0.3
+        build:
+            context: .
+            dockerfile: Dockerfile.neo4j.dev
         container_name: neo4j-db
         restart: unless-stopped
         ports:
@@ -10,14 +13,17 @@ services:
         volumes:
             - ./neo4j/conf:/conf
             - ./neo4j/data:/data
-            - ./neo4j/import:/import
+            - ./ETL/processedData/mysqlData/:/import
             - ./neo4j/logs:/logs
             - ./neo4j/plugins:/plugins
+            - ./ETL/load/mysqlLoad:/import/load
         environment:
             # Raise memory limits
             - NEO4J_dbms_memory_pagecache_size=1G
             - NEO4J_dbms.memory.heap.initial_size=1G
             - NEO4J_dbms_memory_heap_max__size=1G
+            - NEO4J_AUTH=neo4j/your_password
+            - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
     db:
         image: mysql:8
         container_name: mysql-db
@@ -31,6 +37,7 @@ services:
             TZ: Asia/Shanghai
             MYSQL_ROOT_PASSWORD: your_password
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
+
     # Hive配置:
     namenode:
         image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
@@ -76,3 +83,4 @@ services:
         image: shawnzhu/prestodb:0.181
         ports:
             - "8080:8080"
+
