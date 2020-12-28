@@ -15,13 +15,13 @@ import java.util.List;
 public interface DirectorRepository extends CrudRepository<Director, Long> {
 
     /**
-     * 根据导演名查找电影数量
+     * 根据导演名查找电影
      *
      * @param director
      * @return
      */
     @Query(value = "call find_director_movie(:dir);", nativeQuery = true)
-    List<Object> getMovieCount(@Param("dir") String director);
+    List<Director> getMovieCount(@Param("dir") String director);
 
     /**
      * 根据导演名查找合作的演员
@@ -32,6 +32,13 @@ public interface DirectorRepository extends CrudRepository<Director, Long> {
     @Query(value = "call find_actor_by_director(:dir);", nativeQuery = true)
     List<Object> getActorList(@Param("dir") String director);
 
-    List<Director> findDirectorByMovieCount(String count);
+    /**
+     * 找根据导演查询合作导演
+     *
+     * @param director
+     * @return
+     */
+    @Query(value = "call find_director_by_director(:dir);", nativeQuery = true)
+    List<Object> getDirectorList(@Param("dir") String director);
 
 }

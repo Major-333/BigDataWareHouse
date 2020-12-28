@@ -2,6 +2,7 @@ package com.example.dw_backend.service.mysql;
 
 import com.example.dw_backend.dao.mysql.DirectorRepository;
 import com.example.dw_backend.model.mysql.Director;
+import com.example.dw_backend.model.mysql.Movie;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,30 +18,60 @@ public class DirectorService {
     }
 
     /**
-     * 把查询返回值装入键值对list
+     * 把查询返回值变成MovieList类型
      *
      * @param directorName
      * @return
      */
-    public List<HashMap<String, String>> parsingDirectorMovie(String directorName) {
+    public List<Movie> parsingDirectorMovie(String directorName) {
+        List<Director> directors = directorRepository.getMovieCount(directorName);
+        List<Movie> movieList = new ArrayList<>();
+        for (Director dir : directors) {
+            movieList.add(dir.getMovie());
+        }
+        return movieList;
+    }
+
+
+    /**
+     * 返回ActorList
+     *
+     * @param director
+     * @return
+     */
+    public List<HashMap<String, String>> parsingGetActorList(String director) {
+        HashMap<String, String> temp1 = new HashMap<>();
         List<HashMap<String, String>> result = new ArrayList<>();
-        List<Object> direMovieCount = directorRepository.getMovieCount(directorName);
-        for (Object row : direMovieCount) {
+        List<Object> actorList = this.directorRepository.getActorList(director);
+
+        for (Object row : actorList) {
             Object[] cells = (Object[]) row;
-            HashMap<String, String> temp1 = new HashMap<>();
-            temp1.put("directorName", String.valueOf(cells[0]));
-            temp1.put("movieCount", String.valueOf(cells[1]));
-            temp1.put("productId", String.valueOf(cells[2]));
-            temp1.put("title", String.valueOf(cells[3]));
-            temp1.put("emotionScore", String.valueOf(cells[4]));
+            temp1.put("actorName", String.valueOf(cells[0]));
+            temp1.put("productId", String.valueOf(cells[1]));
             result.add(temp1);
         }
         return result;
     }
 
 
-    public List<Director> parsingDirectorCount(String count) {
-        return this.directorRepository.findDirectorByMovieCount(count);
+    /**
+     * 返回directorList
+     *
+     * @param director
+     * @return
+     */
+    public List<HashMap<String, String>> parsingGetDirectorList(String director) {
+        HashMap<String, String> temp1 = new HashMap<>();
+        List<HashMap<String, String>> result = new ArrayList<>();
+        List<Object> actorList = this.directorRepository.getDirectorList(director);
+
+        for (Object row : actorList) {
+            Object[] cells = (Object[]) row;
+            temp1.put("directorName", String.valueOf(cells[0]));
+            temp1.put("productId", String.valueOf(cells[1]));
+            result.add(temp1);
+        }
+        return result;
     }
 
 

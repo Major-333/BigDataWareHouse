@@ -2,6 +2,7 @@ package com.example.dw_backend.bootstrap;
 
 import com.example.dw_backend.dao.mysql.DirectorRepository;
 import com.example.dw_backend.dao.mysql.EmotionScoreRepository;
+import com.example.dw_backend.model.mysql.Director;
 import com.example.dw_backend.service.mysql.DirectorService;
 import com.example.dw_backend.service.mysql.EmotionScoreService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class MovieBootstrap implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         long startTime = System.currentTimeMillis();    //获取开始时间
-        List<Object> direMovieCount = directorRepository.getMovieCount("Aaron Lipstadt");
+        List<Director> direMovieCount = directorRepository.getMovieCount("Aaron Lipstadt");
 
         EmotionScoreService emotionScoreService = new EmotionScoreService(emotionScoreRepository);
         int emoCount = emotionScoreService.parsingMovieCount(50,true);
