@@ -22,7 +22,7 @@ public interface TimeRepository extends CrudRepository<Time, Long> {
      * @return
      */
     @Query(value = "call find_movie_by_year(:ye, :after);", nativeQuery = true)
-    List<Object> getMovieCountByYear(@Param("ye") int year, @Param("after") boolean after);
+    List<Integer> getMovieCountByYear(@Param("ye") int year, @Param("after") String after);
 
     /**
      * 写一个查询X年Y月以后/前的电影总数 返回电影数量
@@ -33,7 +33,7 @@ public interface TimeRepository extends CrudRepository<Time, Long> {
      * @return
      */
     @Query(value = "call find_movie_by_month(:ye, :mon, :after);", nativeQuery = true)
-    List<Object> getMovieCountByMonth(@Param("ye") int year, @Param("mon") int month, @Param("after") boolean after);
+    List<Integer> getMovieCountByMonth(@Param("ye") int year, @Param("mon") int month, @Param("after") String after);
 
 
     /**
@@ -46,18 +46,17 @@ public interface TimeRepository extends CrudRepository<Time, Long> {
      * @return
      */
     @Query(value = "call find_movie_by_day(:ye, :mon, :da, :after);", nativeQuery = true)
-    List<Object> getMovieCountByDay(@Param("ye") int year, @Param("mon") int month, @Param("da") int day, @Param("after") boolean after);
+    List<Integer> getMovieCountByDay(@Param("ye") int year, @Param("mon") int month, @Param("da") int day, @Param("after") String after);
 
     /**
      * 查询X年W季度的电影总数 返回电影数量
      *
      * @param year
      * @param season
-     * @param after
      * @return
      */
-    @Query(value = "call find_movie_by_season(:ye, :sea, :after);", nativeQuery = true)
-    List<Object> getMovieCountBySeason(@Param("ye") int year, @Param("sea") int season, @Param("after") boolean after);
+    @Query(value = "call find_movie_by_season(:ye, :sea);", nativeQuery = true)
+    List<Integer> getMovieCountBySeason(@Param("ye") int year, @Param("sea") int season);
 
 
 }

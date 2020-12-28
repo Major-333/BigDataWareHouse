@@ -1,6 +1,7 @@
 package com.example.dw_backend.dao.mysql;
 
 import com.example.dw_backend.model.mysql.EmotionScore;
+import com.example.dw_backend.model.mysql.Score;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,5 +20,7 @@ public interface EmotionScoreRepository extends CrudRepository<EmotionScore, Lon
      * @return
      */
     @Query(value = "call find_movie_count_by_emo_score(:sco, :larger);", nativeQuery = true)
-    List<Integer> getMovieCount(@Param("sco") int score, @Param("larger") boolean large);
+    List<Integer> getMovieCount(@Param("sco") int score, @Param("larger") String large);
+
+    List<EmotionScore> findAll();
 }

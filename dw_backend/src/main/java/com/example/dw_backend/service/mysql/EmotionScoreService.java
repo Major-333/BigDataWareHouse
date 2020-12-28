@@ -1,9 +1,12 @@
 package com.example.dw_backend.service.mysql;
 
 import com.example.dw_backend.dao.mysql.EmotionScoreRepository;
+import com.example.dw_backend.model.mysql.EmotionScore;
+import com.example.dw_backend.model.mysql.Score;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -14,17 +17,18 @@ public class EmotionScoreService {
         this.emotionScoreRepository = emotionScoreRepository;
     }
 
-    public int parsingMovieCount(int score, boolean large) {
+    public HashMap<String, Integer> parserCount(int sco, String comparison) {
+        HashMap<String, Integer> map = new HashMap<>();
         int result = 0;
-        List<Integer> resList = new ArrayList<>();
-        long startTime = System.currentTimeMillis();    //获取开始时间
-        resList = emotionScoreRepository.getMovieCount(score, large);
-        long endTime = System.currentTimeMillis();    //获取结束时间
-        System.out.println("数据库查询时间：" + (endTime - startTime) + "ms");    //输出程序运行时间
-        if (resList.size() > 0) {
-            result = resList.get(0);
+        if (emotionScoreRepository.getMovieCount(sco, comparison).size() > 0) {
+            result = emotionScoreRepository.getMovieCount(sco, comparison).get(0);
         }
-        return result;
+        map.put("Count", result);
+        return map;
+    }
+
+    public List<EmotionScore> findAll(){
+        return this.emotionScoreRepository.findAll();
     }
 
 

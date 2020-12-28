@@ -1,6 +1,8 @@
 package com.example.dw_backend.dao.mysql;
 
+import com.example.dw_backend.model.mysql.Actor;
 import com.example.dw_backend.model.mysql.Label;
+import com.example.dw_backend.model.mysql.Movie;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +19,7 @@ public interface LabelRepository extends CrudRepository<Label, Long> {
      * @return
      */
     @Query(value = "call find_label_movie(:lab);", nativeQuery = true)
-    List<Object> getMovieCount(@Param("lab") String label);
+    List<Label> getMovieCount(@Param("lab") String label);
+
+    List<Label> findAll();
 }
