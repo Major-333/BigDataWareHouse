@@ -1,4 +1,4 @@
-package com.example.dw_backend.repository.mysql;
+package com.example.dw_backend.dao.mysql;
 
 import com.example.dw_backend.model.mysql.Director;
 import org.springframework.data.jpa.repository.Query;

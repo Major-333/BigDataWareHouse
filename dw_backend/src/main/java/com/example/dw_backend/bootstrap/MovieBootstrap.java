@@ -1,8 +1,9 @@
 package com.example.dw_backend.bootstrap;
 
-import com.example.dw_backend.repository.mysql.DirectorRepository;
-import com.example.dw_backend.repository.mysql.TimeRepository;
+import com.example.dw_backend.dao.mysql.DirectorRepository;
+import com.example.dw_backend.dao.mysql.EmotionScoreRepository;
 import com.example.dw_backend.service.mysql.DirectorService;
+import com.example.dw_backend.service.mysql.EmotionScoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -16,22 +17,24 @@ import java.util.Map;
 public class MovieBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final DirectorRepository directorRepository;
+    private final EmotionScoreRepository emotionScoreRepository;
 
-    public MovieBootstrap(DirectorRepository directorRepository) {
+    public MovieBootstrap(DirectorRepository directorRepository, EmotionScoreRepository emotionScoreRepository) {
         this.directorRepository = directorRepository;
+        this.emotionScoreRepository = emotionScoreRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         long startTime = System.currentTimeMillis();    //获取开始时间
-
-        DirectorService directorService = new DirectorService(directorRepository);
-        List<Map<String, String>> result = directorService.parsingDirectorMovie("Aaron Lipstadt");
         List<Object> direMovieCount = directorRepository.getMovieCount("Aaron Lipstadt");
+
+        EmotionScoreService emotionScoreService = new EmotionScoreService(emotionScoreRepository);
+        int emoCount = emotionScoreService.parsingMovieCount(50,true);
 
         long endTime = System.currentTimeMillis();    //获取结束时间
 
-        System.out.println(result);
+        System.out.println(emoCount);
         System.out.println("程序运行时间：" + (endTime - startTime) + "ms");    //输出程序运行时间
     }
 }
