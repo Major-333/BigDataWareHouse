@@ -1,9 +1,11 @@
 package com.example.dw_backend.controller;
 
 import com.example.dw_backend.model.mysql.Director;
+import com.example.dw_backend.model.mysql.Label;
 import com.example.dw_backend.model.mysql.Movie;
 import com.example.dw_backend.service.mysql.ActorService;
 import com.example.dw_backend.service.mysql.DirectorService;
+import com.example.dw_backend.service.mysql.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,8 @@ public class QueryController {
     private DirectorService directorService;
     @Autowired
     private ActorService actorService;
+    @Autowired
+    private LabelService labelService;
 
 
     /**
@@ -49,6 +53,18 @@ public class QueryController {
     @RequestMapping(value = "/actor", method = RequestMethod.GET)
     public List<Movie> getActorMovieList(@RequestParam String actorName) {
         return actorService.parsingActorMovie(actorName);
+    }
+
+    /**
+     * 查询给定标签的电影,返回电影列表
+     *
+     * @param labelName
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/label", method = RequestMethod.GET)
+    public List<Movie> getLabelMovieList(@RequestParam String labelName) {
+        return labelService.parsingLabelMovie(labelName);
     }
 
 
