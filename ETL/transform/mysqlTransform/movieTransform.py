@@ -19,6 +19,7 @@ class MovieTransform:
         self.generate_director_schema()
         self.generate_actor_schema()
         self.generate_label_movie()
+        self.merge_movie_info()
 
     def generate_day_schema(self):
         time_df = self.raw_df[['p_id', 'release_time']].copy()
@@ -145,3 +146,12 @@ class MovieTransform:
         label_schema = label_schema.merge(label_count, how='outer', on='label')
         print(label_schema)
         label_schema.to_csv(os.path.join(self.schema_path, 'label_schema'), index=False)
+
+    def merge_movie_info(self):
+        movie_schema = pd.read_csv(os.path.join(self.schema_path, 'movie_schema'))
+        movie_schema = movie_schema.drop(columns=['title'])
+        extra_info_df = self.raw_df[['title', 'p_id', 'version_count']]
+        extra_info_df = extra_info_df.rename(columns={'p_id': 'product_id'})
+        movie_schema = movie_schema.merge(extra_info_df, how='inner', on='product_id')
+        movie_schema.to_csv(os.path.join(self.schema_path, 'movie_schema'), index=False)
+

@@ -1,10 +1,10 @@
 version: "3"
 services:
     neo4j:
-#        image: neo4j:4.0.3
-        build:
-            context: .
-            dockerfile: Dockerfile.neo4j.dev
+        image: neo4j:4.0.3
+#        build:
+#            context: .
+#            dockerfile: Dockerfile.neo4j.dev
         container_name: neo4j-db
         restart: unless-stopped
         ports:
@@ -83,4 +83,3 @@ services:
         image: shawnzhu/prestodb:0.181
         ports:
             - "8080:8080"
-

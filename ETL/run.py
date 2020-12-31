@@ -33,7 +33,7 @@ if __name__ == '__main__':
     # print(args.raw_data_path)
     # print(args.uf_path)
 
-    if args.review_extract:
+    if args.review_extract or True:
         print('will extract review data from ' + args.raw_data_path)
         review_extract = ReviewExtract(args.raw_data_path, args.uf_path)
         review_extract.run()
@@ -48,38 +48,44 @@ if __name__ == '__main__':
     except _:
         print('review data needs to be extracted first')
 
+    # review_transform = ReviewTransform()
+    # movie_transform = MovieTransform()
+
+    a = pd.read_csv('./processedData/movies.csv')
+    print(a.shape[0])
+
     # junk code begins
 
-    uf_path = './processedData/component_mapping.pickle'
-
-    with open(uf_path, 'rb') as uf_file:
-        uf_dict = pickle.load(uf_file)
-
-    print('number of product is: ', len(uf_dict.keys()))
-    movie_id_list = [item for item in uf_dict.keys() if item == sorted(uf_dict[item])[0]]
-    print('number of movie is: ', len(movie_id_list))
-
-    print('will check review.csv')
-    df = pd.read_csv('./processedData/reviews.csv')
-    df = df['product_id']
-    print('number of review \'s row', df.shape[0])
-    df = df.drop_duplicates()
-    print('number of review \'s row', df.shape[0])
-
-    print('will transform for mysql')
+    # uf_path = './processedData/component_mapping.pickle'
+    #
+    # with open(uf_path, 'rb') as uf_file:
+    #     uf_dict = pickle.load(uf_file)
+    #
+    # print('number of product is: ', len(uf_dict.keys()))
+    # movie_id_list = [item for item in uf_dict.keys() if item == sorted(uf_dict[item])[0]]
+    # print('number of movie is: ', len(movie_id_list))
+    #
+    # print('will check review.csv')
+    # df = pd.read_csv('./processedData/reviews.csv')
+    # df = df['product_id']
+    # print('number of review \'s row', df.shape[0])
+    # df = df.drop_duplicates()
+    # print('number of review \'s row', df.shape[0])
+    #
+    # print('will transform for mysql')
 
     # review_transform = ReviewTransform()
     # movie_transform = MovieTransform()
 
-    review = pd.read_csv('./processedData/reviews.csv')
-    movie = pd.read_csv('./processedData/movies.csv')
-    review = review.rename(columns={'product_id': 'p_id'})
-
-    print(review.shape[0])
-    print(movie.shape[0])
-    print(movie[movie['p_id'].isin(review['p_id'])]['p_id'].shape[0])
-    swq = movie[~movie['p_id'].isin(review['p_id'])]['p_id']
-
-    movie_schema_df = pd.read_csv('./processedData/mysqlData/movie_schema')
-    print(movie_schema_df.shape[0])
-    print(swq.shape[0])
+    # review = pd.read_csv('./processedData/reviews.csv')
+    # movie = pd.read_csv('./processedData/movies.csv')
+    # review = review.rename(columns={'product_id': 'p_id'})
+    #
+    # print(review.shape[0])
+    # print(movie.shape[0])
+    # print(movie[movie['p_id'].isin(review['p_id'])]['p_id'].shape[0])
+    # swq = movie[~movie['p_id'].isin(review['p_id'])]['p_id']
+    #
+    # movie_schema_df = pd.read_csv('./processedData/mysqlData/movie_schema')
+    # print(movie_schema_df.shape[0])
+    # print(swq.shape[0])

@@ -31,7 +31,6 @@ class MovieExtract:
         self.movie_dict = {}
         self.movie_df = pd.DataFrame()                              # 电影信息
         self.label_df = pd.read_csv(self.labels_path, header=0)     # 导入 label data frame
-        self.title_df = pd.read_csv(self.title_path, header=0)      # 导入 title data frame
 
         self.init_uf_dict()                                         # 导入并查集数据
         self.init_movie_df()                                        # 初始化 movie data frame
@@ -53,11 +52,11 @@ class MovieExtract:
                 # print(sorted(self.uf_dict[p_id]))
                 if sorted(self.uf_dict[p_id])[0] == p_id:
                     self.movie_dict['p_id'] = p_id
+                    self.movie_dict['version_count'] = len(sorted(self.uf_dict[p_id]))
                     self.get_labels(p_id)
                     html = etree.parse(os.path.join(root_path, file_name), etree.HTMLParser())
                     self.get_title(p_id, html)
                     try:
-
                         node_list = html.xpath('//div[@id="detailBullets_feature_div"]')[1].xpath('ul/li')
                         for node in node_list:
                             key = node.xpath('span/span[1]/text()')[0].split(':')[0].strip()
@@ -80,6 +79,10 @@ class MovieExtract:
                     self.init_movie_df()
             self.movie_df.to_csv(self.target_path, mode='a', index=False, header=False)
             break
+
+        # merge title df
+
+
 
     def get_actors(self, node, page_type=1):
         """
@@ -158,7 +161,7 @@ class MovieExtract:
                 'director',
                 'actor_list',
                 'release_time',
-                'version',
+                'version_count',
                 'starring_list',
             ],
             index=[]
