@@ -11,4 +11,8 @@ public class DirectorPK implements Serializable {
 
     private String productId;
     private String directorName;
+
+    public String getDirectorName() {
+        return directorName;
+    }
 }

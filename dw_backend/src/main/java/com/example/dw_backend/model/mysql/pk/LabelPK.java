@@ -10,4 +10,8 @@ import java.io.Serializable;
 public class LabelPK implements Serializable {
     private String productId;
     private String labelName;
+
+    public String getLabelName() {
+        return labelName;
+    }
 }

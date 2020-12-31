@@ -11,7 +11,7 @@ import java.util.Set;
  * 电影实体类
  */
 @Data
-@EqualsAndHashCode(exclude = { "time", "score", "emotionScore" })
+@EqualsAndHashCode(exclude = {"time", "score", "emotionScore"})
 @Entity
 @org.hibernate.annotations.Table(appliesTo = "movie", comment = "电影表")
 public class Movie {
@@ -20,16 +20,16 @@ public class Movie {
     private String productId;
 
     @Column(nullable = true)
-    private String title;
+    private String titleY;
+
+    @Column(nullable = true)
+    private int version;
 
     @ManyToOne
     private Time time;
 
     @ManyToOne
     private Score score;
-//
-//    @ManyToOne
-//    private Version version;
 
     @ManyToOne
     private EmotionScore emotionScore;

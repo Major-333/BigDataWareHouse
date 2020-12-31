@@ -25,6 +25,10 @@ public class Label {
 
     private int movieCount;
 
+    public String getLabelName() {
+        return id.getLabelName();
+    }
+
     public Movie getMovie() {
         return movie;
     }

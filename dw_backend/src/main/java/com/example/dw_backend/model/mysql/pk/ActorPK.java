@@ -10,4 +10,8 @@ import java.io.Serializable;
 public class ActorPK implements Serializable {
     private String productId;
     private String actorName;
+
+    public String getActorName() {
+        return actorName;
+    }
 }
