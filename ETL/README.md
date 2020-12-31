@@ -1,6 +1,6 @@
 # how to use ETL
 
-### 奶牛快传(extractData.zip)：
+### 奶牛快传(extraData.zip)：
  https://cowtransfer.com/s/d9fbf97ee38c42
 
  ## Folder Structure

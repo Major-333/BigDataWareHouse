@@ -82,8 +82,6 @@ class MovieExtract:
 
         # merge title df
 
-
-
     def get_actors(self, node, page_type=1):
         """
         从一个网页中抽取所有演员信息
