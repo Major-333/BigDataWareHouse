@@ -22,10 +22,10 @@ def get_args():
                         help='path of union find data', dest='uf_path')
     parser.add_argument('--label_path', type=str, default='./processedData/TODO',  # TODO
                         help='path of movie label', dest='label_path')
-    parser.add_argument('--review-extract', dest='review_extract', type=bool, nargs='?', help='extract review data from movie.txt')
-    parser.add_argument('--movie-extract', dest='movie_extract', nargs='?', type=bool, help='extract movie data from web pages')
-    parser.add_argument('--review-transform', dest='review_transform', nargs='?', help='extract movie data from web pages')
-    parser.add_argument('--movie-transform', dest='movie_transform', nargs='?', help='extract movie data from web pages')
+    parser.add_argument('--review-extract', dest='review_extract', action='store_true', help='extract review data from movie.txt')
+    parser.add_argument('--movie-extract', dest='movie_extract', action='store_true', help='extract movie data from web pages')
+    parser.add_argument('--review-transform', dest='review_transform', action='store_true', help='extract movie data from web pages')
+    parser.add_argument('--movie-transform', dest='movie_transform', action='store_true', help='extract movie data from web pages')
     return parser.parse_args()
 
 
