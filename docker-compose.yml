@@ -13,7 +13,7 @@ services:
         volumes:
             - ./neo4j/conf:/conf
             - ./neo4j/data:/data
-            - ./ETL/processedData/mysqlData/:/import
+            - ./ETL/processedData/neo4jData/:/import
             - ./neo4j/logs:/logs
             - ./neo4j/plugins:/plugins
             - ./ETL/load/mysqlLoad:/import/load
