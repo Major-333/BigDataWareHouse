@@ -16,7 +16,7 @@ services:
             - ./ETL/processedData/neo4jData/:/import
             - ./neo4j/logs:/logs
             - ./neo4j/plugins:/plugins
-            - ./ETL/load/mysqlLoad:/import/load
+            - ./ETL/load/neo4jLoad:/import/load
         environment:
             # Raise memory limits
             - NEO4J_dbms_memory_pagecache_size=2G
@@ -35,6 +35,7 @@ services:
         volumes:
             - ./mysql/data:/var/lib/mysql
             - ./mysql/config:/etc/mysql/conf.d
+            - ./ETL/load/mysqlLoad:/script
         environment:
             TZ: Asia/Shanghai
             MYSQL_ROOT_PASSWORD: your_password
