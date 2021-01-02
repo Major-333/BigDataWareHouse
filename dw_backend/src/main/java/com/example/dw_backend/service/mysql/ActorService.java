@@ -16,6 +16,7 @@ public class ActorService {
     private final ActorRepository actorRepository;
     private long directorTime;
     private long actorTime;
+    private long movieTime;
 
     public ActorService(ActorRepository actorRepository) {
         this.actorRepository = actorRepository;
@@ -28,7 +29,11 @@ public class ActorService {
      * @return
      */
     public List<Movie> parsingActorMovie(String actor) {
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Actor> actorList = actorRepository.getMovieCount(actor);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.movieTime = endTime - startTime;
+
         List<Movie> movieList = new ArrayList<>();
         for (Actor act : actorList) {
             movieList.add(act.getMovie());
@@ -94,5 +99,9 @@ public class ActorService {
 
     public long getActorTime() {
         return actorTime;
+    }
+
+    public long getMovieTime() {
+        return movieTime;
     }
 }
