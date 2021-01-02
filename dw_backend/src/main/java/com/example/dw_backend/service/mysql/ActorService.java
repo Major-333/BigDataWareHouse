@@ -56,7 +56,7 @@ public class ActorService {
             HashMap<String, String> temp1 = new HashMap<>();
             Object[] cells = (Object[]) row;
             temp1.put("actorName", String.valueOf(cells[0]));
-            temp1.put("productId", String.valueOf(cells[1]));
+            temp1.put("cooperation", String.valueOf(cells[1]));
             result.add(temp1);
         }
         return result;
@@ -75,7 +75,7 @@ public class ActorService {
             HashMap<String, String> temp1 = new HashMap<>();
             Object[] cells = (Object[]) row;
             temp1.put("directorName", String.valueOf(cells[0]));
-            temp1.put("productId", String.valueOf(cells[1]));
+            temp1.put("cooperation", String.valueOf(cells[1]));
             result.add(temp1);
         }
         return result;
