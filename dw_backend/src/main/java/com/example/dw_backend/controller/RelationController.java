@@ -1,5 +1,6 @@
 package com.example.dw_backend.controller;
 
+import com.example.dw_backend.model.mysql.returnValue.RelationReturn;
 import com.example.dw_backend.service.mysql.ActorService;
 import com.example.dw_backend.service.mysql.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,9 @@ public class RelationController {
      */
     @ResponseBody
     @RequestMapping(value = "/director-actor", method = RequestMethod.GET)
-    public List<HashMap<String, String>> getActorByDirector(String directorName) {
-        return this.directorService.parsingGetActorList(directorName);
+    public RelationReturn getActorByDirector(String directorName) {
+        RelationReturn relationReturn = new RelationReturn(directorService.getActorTime(), directorService.parsingGetActorList(directorName));
+        return  relationReturn;
     }
 
     /**

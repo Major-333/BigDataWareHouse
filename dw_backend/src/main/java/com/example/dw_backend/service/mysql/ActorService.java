@@ -69,8 +69,8 @@ public class ActorService {
         for (int i = 0; i < actorList.size(); i++) {
             String name = actorList.get(i).getActorName();
             int count = actorList.get(i).getMovieCount();
-            temp1.put(name,count);
-            if(temp1.size() >= limit){
+            temp1.put(name, count);
+            if (temp1.size() >= limit) {
                 return temp1;
             }
         }
