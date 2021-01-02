@@ -1,9 +1,15 @@
 package com.example.dw_backend.model;
 
-import lombok.Data;
 import com.example.dw_backend.model.mysql.Movie;
+import lombok.Data;
+
 import java.util.List;
 
+/**
+ * 查询结果返回类
+ *
+ * @author xuedixuedi
+ */
 @Data
 public class QueryReturn {
     long time;
@@ -14,3 +20,4 @@ public class QueryReturn {
         this.movieList = movieList;
     }
 }
+
