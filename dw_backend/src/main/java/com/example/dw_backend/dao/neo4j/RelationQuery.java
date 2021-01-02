@@ -2,6 +2,7 @@ package com.example.dw_backend.dao.neo4j;
 
 import org.neo4j.driver.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.neo4j.driver.Values.parameters;
@@ -30,9 +31,26 @@ public class RelationQuery implements AutoCloseable{
             List<Record> ans = session.readTransaction(new TransactionWork<List<Record>>() {
                 @Override
                 public List<Record> execute(Transaction transaction) {
-                    Result result = transaction.run("match (d:"+endLabel+")-[]-(a:"+startLabel+") where a.actor=$actor return d.director as name, d.count as count",
-                            parameters("actor", startName));
+                    Result result;
+                    if(startLabel.equals("Actor") && endLabel.equals("Actor")){
+                        result = transaction.run("match (d:Actor)-[r:actor_actor]-(a:Actor) where a.actor=$data return d.actor as name, r.count as count;",
+                                parameters("data", startName));
+                    } else if (startLabel.equals("Actor") && endLabel.equals("Director")){
+                        result = transaction.run("match (d:Director)-[r:actor_director]-(a:Actor) where a.actor=$data return d.director as name, r.count as count;",
+                                parameters("data", startName));
+                    } else if (startLabel.equals("Director") && endLabel.equals("Actor")){
+                        result = transaction.run("match (d:Actor)-[r:actor_director]-(a:Director) where a.director=$data return d.actor as name, r.count as count;",
+                                parameters("data", startName));
+                    } else if (startLabel.equals("Director") && endLabel.equals("Director")){
+                        result = transaction.run("match (d:Director)-[r:director_director]-(a:Director) where a.director=$data return d.director as name, r.count as count;",
+                                parameters("data", startName));
+                    } else {
+                        return new ArrayList<>();
+                    }
+//                    result = transaction.run("match (d:"+endLabel+")-[]-(a:"+startLabel+") where a.actor=$actor return d.director as name, d.count as count",
+//                            parameters("actor", startName));
                     List<Record> resultList = result.list();
+                    System.out.println(resultList);
                     return resultList;
                 }
             });

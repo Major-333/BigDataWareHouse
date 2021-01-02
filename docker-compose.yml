@@ -16,7 +16,8 @@ services:
             - ./ETL/processedData/mysqlData/:/import
             - ./neo4j/logs:/logs
             - ./neo4j/plugins:/plugins
-            - ./ETL/load/neo4jLoad:/import/load
+            - ./ETL/load/neo4jLoad:/load
+#            - ./ETL/load/neo4jLoad:/import/load
         environment:
             # Raise memory limits
             - NEO4J_dbms_memory_pagecache_size=2G

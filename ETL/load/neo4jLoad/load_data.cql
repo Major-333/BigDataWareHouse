@@ -76,7 +76,7 @@ set m.emotion_count = row.count;
 match (a:Actor)-[:act_movie]->(:Movie)<-[:act_movie]-(b:Actor)
 where a.actor <> b.actor and size((b)-->(a))=0
 merge (a)-[r:actor_actor]->(b)
-set r.count = toInteger(0);
+set r.count = toInteger(1);
 
 match (a:Actor)-[:act_movie]->(:Movie)<-[:act_movie]-(b:Actor)
 where a.actor <> b.actor and size((b)-->(a))=0
@@ -87,14 +87,14 @@ set r.count = r.count+1;
 match (a:Actor)-[:act_movie]->(:Movie)<-[:director_movie]-(b:Director)
 merge (a)-[r:actor_director]->(b)
 set r.count = case r.count
-when r.count then toInteger(0)
+when r.count then toInteger(1)
 else r.count+1
 end;
 
 match (a:Director)-[:director_movie]->(:Movie)<-[:director_movie]-(b:Director)
 where a.director <> b.director and size((b)-->(a))=0
 merge (a)-[r:director_director]->(b)
-set r.count = toInteger(0);
+set r.count = toInteger(1);
 
 match (a:Director)-[:director_movie]->(:Movie)<-[:director_movie]-(b:Director)
 where a.director <> b.director and size((b)-->(a))=0
