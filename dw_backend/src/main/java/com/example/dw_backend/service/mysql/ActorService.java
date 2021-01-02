@@ -43,7 +43,7 @@ public class ActorService {
 
 
     public List<HashMap<String, String>> parsingGetActorList(String actor) {
-        HashMap<String, String> temp1 = new HashMap<>();
+
         List<HashMap<String, String>> result = new ArrayList<>();
 
         long startTime = System.currentTimeMillis();    //获取开始时间
@@ -53,6 +53,7 @@ public class ActorService {
 
 
         for (Object row : actorList) {
+            HashMap<String, String> temp1 = new HashMap<>();
             Object[] cells = (Object[]) row;
             temp1.put("actorName", String.valueOf(cells[0]));
             temp1.put("productId", String.valueOf(cells[1]));
@@ -62,7 +63,7 @@ public class ActorService {
     }
 
     public List<HashMap<String, String>> parsingGetDirectorList(String actor) {
-        HashMap<String, String> temp1 = new HashMap<>();
+
         List<HashMap<String, String>> result = new ArrayList<>();
 
         long startTime = System.currentTimeMillis();    //获取开始时间
@@ -71,6 +72,7 @@ public class ActorService {
         this.directorTime = endTime - startTime;
 
         for (Object row : directorList) {
+            HashMap<String, String> temp1 = new HashMap<>();
             Object[] cells = (Object[]) row;
             temp1.put("directorName", String.valueOf(cells[0]));
             temp1.put("productId", String.valueOf(cells[1]));
