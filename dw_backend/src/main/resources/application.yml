@@ -10,5 +10,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: mysql
     show-sql: true
+  neo4j:
+    uri: neo4j://localhost:7687
+    authentication:
+      username: neo4j
+      password: your_password
 server:
   port : 8004

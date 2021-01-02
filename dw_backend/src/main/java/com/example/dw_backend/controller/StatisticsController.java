@@ -1,8 +1,11 @@
 package com.example.dw_backend.controller;
 
+import com.example.dw_backend.dao.neo4j.SimpleQuery;
+import com.example.dw_backend.dao.neo4j.TimeQuery;
 import com.example.dw_backend.model.mysql.EmotionScore;
 import com.example.dw_backend.model.mysql.Score;
 import com.example.dw_backend.service.mysql.*;
+import com.example.dw_backend.service.neo4j.SimpleQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +30,13 @@ public class StatisticsController {
     @Autowired
     private ScoreService scoreService;
 
+    final private SimpleQueryService simpleQueryService = new SimpleQueryService(
+            new SimpleQuery("bolt://localhost:7687", "neo4j", "your_password"),
+            new TimeQuery("bolt://localhost:7687", "neo4j", "your_password")
+    );
+
     @ResponseBody
-    @RequestMapping(value = "/time", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/time", method = RequestMethod.GET)
     public HashMap<String, Integer> getCountByTime(@RequestParam String time, @RequestParam String type, @RequestParam String comparison) {
         HashMap<String, Integer> result = new HashMap<>();
         String[] ymd = time.split("-");
@@ -54,44 +62,57 @@ public class StatisticsController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/emotion", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/emotion", method = RequestMethod.GET)
     public HashMap<String, Integer> getCountByEmotion(int score, String large) {
         return emotionScoreService.parserCount(score, large);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/score", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/score", method = RequestMethod.GET)
     public HashMap<String, Integer> getCountByScore(int score, String large) {
         return scoreService.parserCount(score, large);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/score-all", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/score-all", method = RequestMethod.GET)
     public List<Score> getAllScore() {
         return scoreService.findAll();
     }
 
     @ResponseBody
-    @RequestMapping(value = "/emotion-all", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/emotion-all", method = RequestMethod.GET)
     public List<EmotionScore> getAllEmotion() {
         return emotionScoreService.findAll();
     }
 
     @ResponseBody
-    @RequestMapping(value = "/director-all", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/director-all", method = RequestMethod.GET)
     public HashMap<String, String> getAllDirector(@RequestParam int limit) {
         return directorService.findAll(limit);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/actor-all", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/actor-all", method = RequestMethod.GET)
     public HashMap<String, Integer> getAllActor(@RequestParam int limit) {
         return actorService.findAll(limit);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/label-all", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/label-all", method = RequestMethod.GET)
     public HashMap<String, Integer> getAllLabel(@RequestParam int limit) {
         return labelService.findAll(limit);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/neo4j/time", method = RequestMethod.GET)
+    public HashMap<String, Object> getCountByTimeInNeo4j(@RequestParam String time, @RequestParam String type, @RequestParam String comparison) {
+        return simpleQueryService.getTimeCount(time, type, comparison);
+    }
+
+//    @ResponseBody
+//    @RequestMapping(value = "/neo4j/emotion", method = RequestMethod.GET)
+//    public HashMap<String, Object> getCountByEmotionInNeo4j(int score, String large) {
+//        return emotionScoreService.parserCount(score, large);
+//    }
+
 }

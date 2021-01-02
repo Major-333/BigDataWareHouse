@@ -1,11 +1,15 @@
 package com.example.dw_backend.controller;
 
+import com.example.dw_backend.dao.neo4j.SimpleQuery;
+import com.example.dw_backend.dao.neo4j.TimeQuery;
 import com.example.dw_backend.model.mysql.Movie;
 import com.example.dw_backend.service.mysql.*;
+import com.example.dw_backend.service.neo4j.SimpleQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -26,7 +30,10 @@ public class QueryController {
     @Autowired
     private MovieService movieService;
 
-
+    final private SimpleQueryService simpleQueryService = new SimpleQueryService(
+            new SimpleQuery("bolt://localhost:7687", "neo4j", "your_password"),
+            new TimeQuery("bolt://localhost:7687", "neo4j", "your_password")
+    );
 
     /**
      * 查询给定导演的电影,返回电影列表
@@ -35,7 +42,7 @@ public class QueryController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/director", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/director", method = RequestMethod.GET)
     public List<Movie> getDirectorMovieList(@RequestParam String directorName) {
         return directorService.parsingDirectorMovie(directorName);
     }
@@ -47,7 +54,7 @@ public class QueryController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/actor", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/actor", method = RequestMethod.GET)
     public List<Movie> getActorMovieList(@RequestParam String actorName) {
         return actorService.parsingActorMovie(actorName);
     }
@@ -59,28 +66,65 @@ public class QueryController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/label", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/label", method = RequestMethod.GET)
     public List<Movie> getLabelMovieList(@RequestParam String labelName) {
         return labelService.parsingLabelMovie(labelName);
     }
 
 
     @ResponseBody
-    @RequestMapping(value = "/score", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/score", method = RequestMethod.GET)
     public List<Movie> getScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
         return movieService.parsingScoreList(score, comparison);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/emotion", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/emotion", method = RequestMethod.GET)
     public List<Movie> getEmotionScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
         return movieService.parsingEmoScoreList(score, comparison);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/title", method = RequestMethod.GET)
+    @RequestMapping(value = "/mysql/title", method = RequestMethod.GET)
     public List<Movie> getEmotionScoreMovieList(@RequestParam String title) {
         return movieService.parsingTitleList(title);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/neo4j/title", method = RequestMethod.GET)
+    public HashMap<String, Object> getMovieListByTitle(@RequestParam String title){
+        return simpleQueryService.generateMovieList(title, "title");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/neo4j/actor", method = RequestMethod.GET)
+    public HashMap<String, Object> getMovieListByActor(@RequestParam String actor){
+        return simpleQueryService.generateMovieList(actor, "Actor");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/neo4j/director", method = RequestMethod.GET)
+    public HashMap<String, Object> getMovieListByDirector(@RequestParam String director){
+        return simpleQueryService.generateMovieList(director, "Director");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/neo4j/label", method = RequestMethod.GET)
+    public HashMap<String, Object> getMovieListByLabel(@RequestParam String label){
+        return simpleQueryService.generateMovieList(label, "Label");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/neo4j/score", method = RequestMethod.GET)
+    public HashMap<String, Object> getMovieListByScore(@RequestParam Integer score, @RequestParam String comparison){
+        System.out.println("1");
+        return simpleQueryService.generateMovieListByScore(score,"score", comparison );
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/neo4j/emotion", method = RequestMethod.GET)
+    public HashMap<String, Object> getMovieListByEmotion(@RequestParam Integer emotion, @RequestParam String comparison){
+        return simpleQueryService.generateMovieListByScore(emotion,"emotion_score", comparison );
     }
 
 }

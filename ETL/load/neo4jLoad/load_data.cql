@@ -3,7 +3,9 @@ USING PERIODIC COMMIT 500
 LOAD CSV WITH HEADERS FROM 'file:///movie_schema' AS row
 merge (m:Movie {product_id: row.product_id})
 SET m.score = toInteger(row.score)
+SET m.score_count = toInteger(1)
 SET m.emotion_score = toInteger(row.emotion_score)
+SET m.emotion_count = toInteger(1)
 SET m.title = row.title;
 
 // actor_schema
@@ -54,6 +56,21 @@ match (m:Movie) where m.product_id = row.product_id
 match (t:Time) where t.day_id = row.day_id
 // merge (m) -[:movie_time]->(t)
 merge (t) -[:time_movie]->(m);
+
+// score_schma for movie
+using periodic commit 500
+load csv with headers from 'file:///score_schema' as row
+match(m:Movie)
+where m.score = row.score
+set m.score_count = row.count;
+
+// emotion_score_schma for movie
+using periodic commit 500
+load csv with headers from 'file:///emotion_score_schema' as row
+match(m:Movie)
+where m.emotion_score = row.emotion_score
+set m.emotion_count = row.count;
+
 
 // pre-calculate 
 match (a:Actor)-[:act_movie]->(:Movie)<-[:act_movie]-(b:Actor)

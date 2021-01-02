@@ -1,0 +1,588 @@
+{
+	"info": {
+		"_postman_id": "22fc8f28-762d-42a3-ae47-c22ec25dcb87",
+		"name": "BigDW",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "query",
+			"item": [
+				{
+					"name": "localhost:8004/query/director?directorName=Crane Wilbur",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/query/director?directorName=Crane Wilbur",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"query",
+								"director"
+							],
+							"query": [
+								{
+									"key": "directorName",
+									"value": "Crane Wilbur"
+								}
+							]
+						},
+						"description": "查询给定导演的电影,返回电影列表"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/query/actor?actorName=Deon Richmond",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/query/actor?actorName=Deon Richmond",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"query",
+								"actor"
+							],
+							"query": [
+								{
+									"key": "actorName",
+									"value": "Deon Richmond"
+								}
+							]
+						},
+						"description": "演员名查询电影列表"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/query/label?labelName=20th Century Fox Home Entertainment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/query/label?labelName=20th Century Fox Home Entertainment",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"query",
+								"label"
+							],
+							"query": [
+								{
+									"key": "labelName",
+									"value": "20th Century Fox Home Entertainment"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/query/score?score=240&comparison=less",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/query/score?score=240&comparison=less",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"query",
+								"score"
+							],
+							"query": [
+								{
+									"key": "score",
+									"value": "240"
+								},
+								{
+									"key": "comparison",
+									"value": "less"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/query/emotion?score=20&comparison=equal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/query/emotion?score=20&comparison=equal",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"query",
+								"emotion"
+							],
+							"query": [
+								{
+									"key": "score",
+									"value": "20"
+								},
+								{
+									"key": "comparison",
+									"value": "equal"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/query/title?title=Ugetsu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/query/title?title=Ugetsu",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"query",
+								"title"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Ugetsu"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "relationship",
+			"item": [
+				{
+					"name": "localhost:8004/relationships/director-actor?directorName=Dennis Devine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/relationships/director-actor?directorName=Dennis Devine",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"relationships",
+								"director-actor"
+							],
+							"query": [
+								{
+									"key": "directorName",
+									"value": "Dennis Devine"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/relationships/director-director?directorName=Dennis Devine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/relationships/director-director?directorName=Dennis Devine",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"relationships",
+								"director-director"
+							],
+							"query": [
+								{
+									"key": "directorName",
+									"value": "Dennis Devine"
+								}
+							]
+						},
+						"description": "根据给出导演查询导演"
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/relationships/actor-actor?actorName=Deon Richmond",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/relationships/actor-actor?actorName=Deon Richmond",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"relationships",
+								"actor-actor"
+							],
+							"query": [
+								{
+									"key": "actorName",
+									"value": "Deon Richmond"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/relationships/actor-director?actorName=Deon Richmond",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/relationships/actor-director?actorName=Deon Richmond",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"relationships",
+								"actor-director"
+							],
+							"query": [
+								{
+									"key": "actorName",
+									"value": "Deon Richmond"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "statistics",
+			"item": [
+				{
+					"name": "localhost:8004/statistics/time?time=2002-01-01&type=year&comparison=less",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/time?time=2002-01-01&type=year&comparison=less",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"time"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "2002-01-01"
+								},
+								{
+									"key": "type",
+									"value": "year"
+								},
+								{
+									"key": "comparison",
+									"value": "less"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/time?time=2002-01-01&type=month&comparison=less",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/time?time=2002-01-01&type=month&comparison=less",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"time"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "2002-01-01"
+								},
+								{
+									"key": "type",
+									"value": "month"
+								},
+								{
+									"key": "comparison",
+									"value": "less"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/time?time=2002-01-01&type=day&comparison=less",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/time?time=2002-01-01&type=day&comparison=less",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"time"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "2002-01-01"
+								},
+								{
+									"key": "type",
+									"value": "day"
+								},
+								{
+									"key": "comparison",
+									"value": "less"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/time?time=2002-01-01&type=season&comparison=less",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/time?time=2002-01-01&type=season&comparison=less",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"time"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "2002-01-01"
+								},
+								{
+									"key": "type",
+									"value": "season"
+								},
+								{
+									"key": "comparison",
+									"value": "less"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/score?score=240&large=equal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/score?score=240&large=equal",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"score"
+							],
+							"query": [
+								{
+									"key": "score",
+									"value": "240"
+								},
+								{
+									"key": "large",
+									"value": "equal"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/emotion?score=50&large=equal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/emotion?score=50&large=equal",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"emotion"
+							],
+							"query": [
+								{
+									"key": "score",
+									"value": "50"
+								},
+								{
+									"key": "large",
+									"value": "equal"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/score-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/score-all",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"score-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/emotion-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/emotion-all",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"emotion-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/director-all?limit=20",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/director-all?limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"director-all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/actor-all?limit=20",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/actor-all?limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"actor-all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8004/statistics/label-all?limit=20",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8004/statistics/label-all?limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8004",
+							"path": [
+								"statistics",
+								"label-all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

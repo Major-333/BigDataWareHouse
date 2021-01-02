@@ -1,3 +1,5 @@
+use MOVIE_STAR;
+
 -- 写一个查询X年以后/前的电影总数 返回电影数量
 drop procedure if exists find_movie_by_year;
 DELIMITER $$

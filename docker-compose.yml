@@ -13,7 +13,7 @@ services:
         volumes:
             - ./neo4j/conf:/conf
             - ./neo4j/data:/data
-            - ./ETL/processedData/neo4jData/:/import
+            - ./ETL/processedData/mysqlData/:/import
             - ./neo4j/logs:/logs
             - ./neo4j/plugins:/plugins
             - ./ETL/load/neo4jLoad:/import/load
@@ -25,7 +25,7 @@ services:
             - NEO4J_AUTH=neo4j/your_password
             - dbms.connector.bolt.listen_address=bolt://neo4j:pass@neo4j_db:7687
             - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
-            - NEO4JLABS_PLUGINS=["apoc"]
+#            - NEO4JLABS_PLUGINS=["apoc"]
     db:
         image: mysql:8
         container_name: mysql-db
@@ -36,53 +36,9 @@ services:
             - ./mysql/data:/var/lib/mysql
             - ./mysql/config:/etc/mysql/conf.d
             - ./ETL/load/mysqlLoad:/script
+            - ./ETL/processedData/mysqlData/:/dw_data/mysqlData/
         environment:
             TZ: Asia/Shanghai
             MYSQL_ROOT_PASSWORD: your_password
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --secure-file-priv=''
 
-    # Hive配置:
-    namenode:
-        image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
-        volumes:
-            - ./hive/namenode:/hadoop/dfs/name
-        environment:
-            - CLUSTER_NAME=test
-        env_file:
-            - ./hive/hadoop-hive.env
-        ports:
-            - "50070:50070"
-    datanode:
-        image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
-        volumes:
-            - ./hive/datanode:/hadoop/dfs/data
-        env_file:
-            - ./hive/hadoop-hive.env
-        environment:
-            SERVICE_PRECONDITION: "namenode:50070"
-        ports:
-            - "50075:50075"
-    hive-server:
-        image: bde2020/hive:2.3.2-postgresql-metastore
-        env_file:
-            - ./hive/hadoop-hive.env
-        environment:
-            HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
-            SERVICE_PRECONDITION: "hive-metastore:9083"
-        ports:
-            - "10000:10000"
-    hive-metastore:
-        image: bde2020/hive:2.3.2-postgresql-metastore
-        env_file:
-            - ./hive/hadoop-hive.env
-        command: /opt/hive/bin/hive --service metastore
-        environment:
-            SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
-        ports:
-            - "9083:9083"
-    hive-metastore-postgresql:
-        image: bde2020/hive-metastore-postgresql:2.3.0
-    presto-coordinator:
-        image: shawnzhu/prestodb:0.181
-        ports:
-            - "8080:8080"

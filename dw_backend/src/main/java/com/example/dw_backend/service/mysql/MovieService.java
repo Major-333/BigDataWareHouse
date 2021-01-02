@@ -25,6 +25,6 @@ public class MovieService {
     }
 
     public List<Movie> parsingTitleList(String title) {
-        return this.movieRepository.findAllByTitleY(title);
+        return this.movieRepository.findAllByTitle(title);
     }
 }
