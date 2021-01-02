@@ -12,6 +12,9 @@ import java.util.List;
 @Service
 public class DirectorService {
     private final DirectorRepository directorRepository;
+    private long actorTime;
+    private long directorTime;
+    private long movieTime;
 
     public DirectorService(DirectorRepository directorRepository) {
         this.directorRepository = directorRepository;
@@ -24,7 +27,12 @@ public class DirectorService {
      * @return
      */
     public List<Movie> parsingDirectorMovie(String directorName) {
+
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Director> directors = directorRepository.getMovieCount(directorName);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.movieTime = endTime - startTime;
+
         List<Movie> movieList = new ArrayList<>();
         for (Director dir : directors) {
             movieList.add(dir.getMovie());
@@ -40,14 +48,19 @@ public class DirectorService {
      * @return
      */
     public List<HashMap<String, String>> parsingGetActorList(String director) {
-        HashMap<String, String> temp1 = new HashMap<>();
+
         List<HashMap<String, String>> result = new ArrayList<>();
+
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Object> actorList = this.directorRepository.getActorList(director);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.actorTime = endTime - startTime;
 
         for (Object row : actorList) {
+            HashMap<String, String> temp1 = new HashMap<>();
             Object[] cells = (Object[]) row;
             temp1.put("actorName", String.valueOf(cells[0]));
-            temp1.put("productId", String.valueOf(cells[1]));
+            temp1.put("cooperation", String.valueOf(cells[1]));
             result.add(temp1);
         }
         return result;
@@ -61,14 +74,19 @@ public class DirectorService {
      * @return
      */
     public List<HashMap<String, String>> parsingGetDirectorList(String director) {
-        HashMap<String, String> temp1 = new HashMap<>();
+
         List<HashMap<String, String>> result = new ArrayList<>();
+
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Object> directorList = this.directorRepository.getDirectorList(director);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.directorTime = endTime - startTime;
 
         for (Object row : directorList) {
+            HashMap<String, String> temp1 = new HashMap<>();
             Object[] cells = (Object[]) row;
             temp1.put("directorName", String.valueOf(cells[0]));
-            temp1.put("productId", String.valueOf(cells[1]));
+            temp1.put("cooperation", String.valueOf(cells[1]));
             result.add(temp1);
         }
         return result;
@@ -89,4 +107,15 @@ public class DirectorService {
     }
 
 
+    public long getActorTime() {
+        return actorTime;
+    }
+
+    public long getDirectorTime() {
+        return directorTime;
+    }
+
+    public long getMovieTime() {
+        return movieTime;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class LabelService {
     private final LabelRepository labelRepository;
+    private long movieTime;
 
     public LabelService(LabelRepository labelRepository) {
         this.labelRepository = labelRepository;
@@ -26,7 +27,11 @@ public class LabelService {
      * @return
      */
     public List<Movie> parsingLabelMovie(String label) {
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Label> labelList = labelRepository.getMovieCount(label);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.movieTime = endTime - startTime;
+
         List<Movie> movieList = new ArrayList<>();
         for (Label label1 : labelList) {
             movieList.add(label1.getMovie());
@@ -46,5 +51,9 @@ public class LabelService {
             }
         }
         return temp1;
+    }
+
+    public long getMovieTime() {
+        return movieTime;
     }
 }

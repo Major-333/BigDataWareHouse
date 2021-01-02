@@ -1,6 +1,7 @@
 package com.example.dw_backend.controller;
 
 import com.example.dw_backend.model.mysql.Movie;
+import com.example.dw_backend.model.mysql.returnValue.QueryReturn;
 import com.example.dw_backend.service.mysql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,7 +28,6 @@ public class QueryController {
     private MovieService movieService;
 
 
-
     /**
      * 查询给定导演的电影,返回电影列表
      *
@@ -36,8 +36,8 @@ public class QueryController {
      */
     @ResponseBody
     @RequestMapping(value = "/director", method = RequestMethod.GET)
-    public List<Movie> getDirectorMovieList(@RequestParam String directorName) {
-        return directorService.parsingDirectorMovie(directorName);
+    public QueryReturn getDirectorMovieList(@RequestParam String directorName) {
+        return new QueryReturn(directorService.getMovieTime(), directorService.parsingDirectorMovie(directorName));
     }
 
     /**
@@ -48,8 +48,8 @@ public class QueryController {
      */
     @ResponseBody
     @RequestMapping(value = "/actor", method = RequestMethod.GET)
-    public List<Movie> getActorMovieList(@RequestParam String actorName) {
-        return actorService.parsingActorMovie(actorName);
+    public QueryReturn getActorMovieList(@RequestParam String actorName) {
+        return new QueryReturn(actorService.getMovieTime(), actorService.parsingActorMovie(actorName));
     }
 
     /**
@@ -60,27 +60,27 @@ public class QueryController {
      */
     @ResponseBody
     @RequestMapping(value = "/label", method = RequestMethod.GET)
-    public List<Movie> getLabelMovieList(@RequestParam String labelName) {
-        return labelService.parsingLabelMovie(labelName);
+    public QueryReturn getLabelMovieList(@RequestParam String labelName) {
+        return new QueryReturn(labelService.getMovieTime(), labelService.parsingLabelMovie(labelName));
     }
 
 
     @ResponseBody
     @RequestMapping(value = "/score", method = RequestMethod.GET)
-    public List<Movie> getScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
-        return movieService.parsingScoreList(score, comparison);
+    public QueryReturn getScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
+        return new QueryReturn(movieService.getScoreTime(), movieService.parsingScoreList(score, comparison));
     }
 
     @ResponseBody
     @RequestMapping(value = "/emotion", method = RequestMethod.GET)
-    public List<Movie> getEmotionScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
-        return movieService.parsingEmoScoreList(score, comparison);
+    public QueryReturn getEmotionScoreMovieList(@RequestParam int score, @RequestParam String comparison) {
+        return new QueryReturn(movieService.getEmotionTime(), movieService.parsingEmoScoreList(score, comparison));
     }
 
     @ResponseBody
     @RequestMapping(value = "/title", method = RequestMethod.GET)
-    public List<Movie> getEmotionScoreMovieList(@RequestParam String title) {
-        return movieService.parsingTitleList(title);
+    public QueryReturn getEmotionScoreMovieList(@RequestParam String title) {
+        return new QueryReturn(movieService.getTitleTime(), movieService.parsingTitleList(title));
     }
 
 }

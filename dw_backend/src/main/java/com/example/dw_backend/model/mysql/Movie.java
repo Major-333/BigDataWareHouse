@@ -20,7 +20,7 @@ public class Movie {
     private String productId;
 
     @Column(nullable = true)
-    private String titleY;
+    private String title;
 
     @Column(nullable = true)
     private int version;

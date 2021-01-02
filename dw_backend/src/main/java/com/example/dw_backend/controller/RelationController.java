@@ -1,5 +1,6 @@
 package com.example.dw_backend.controller;
 
+import com.example.dw_backend.model.mysql.returnValue.RelationReturn;
 import com.example.dw_backend.service.mysql.ActorService;
 import com.example.dw_backend.service.mysql.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class RelationController {
      */
     @ResponseBody
     @RequestMapping(value = "/director-actor", method = RequestMethod.GET)
-    public List<HashMap<String, String>> getActorByDirector(String directorName) {
-        return this.directorService.parsingGetActorList(directorName);
+    public RelationReturn getActorByDirector(String directorName) {
+        return new RelationReturn(directorService.getActorTime(), directorService.parsingGetActorList(directorName));
     }
 
     /**
@@ -40,19 +41,31 @@ public class RelationController {
      */
     @ResponseBody
     @RequestMapping(value = "/director-director", method = RequestMethod.GET)
-    public List<HashMap<String, String>> getDirectorByDirector(String directorName) {
-        return this.directorService.parsingGetDirectorList(directorName);
+    public RelationReturn getDirectorByDirector(String directorName) {
+        return new RelationReturn(directorService.getDirectorTime(), directorService.parsingGetDirectorList(directorName));
     }
 
+    /**
+     * 给出演员，查询合作过的导演
+     *
+     * @param actorName
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/actor-director", method = RequestMethod.GET)
-    public List<HashMap<String, String>> getDirectorByActor(String actorName) {
-        return this.actorService.parsingGetDirectorList(actorName);
+    public RelationReturn getDirectorByActor(String actorName) {
+        return new RelationReturn(actorService.getDirectorTime(), actorService.parsingGetDirectorList(actorName));
     }
 
+    /**
+     * 给出演员，查询合作过的演员
+     *
+     * @param actorName
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/actor-actor", method = RequestMethod.GET)
-    public List<HashMap<String, String>> getActorByActor(String actorName) {
-        return this.actorService.parsingGetDirectorList(actorName);
+    public RelationReturn getActorByActor(String actorName) {
+        return new RelationReturn(actorService.getActorTime(), actorService.parsingGetActorList(actorName));
     }
 }
