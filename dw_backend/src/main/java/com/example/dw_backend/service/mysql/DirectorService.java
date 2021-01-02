@@ -50,9 +50,6 @@ public class DirectorService {
         long endTime = System.currentTimeMillis();    //获取开始时间
         this.actorTime = endTime - startTime;
 
-        HashMap<String, Long> queryTime = new HashMap<>();
-        queryTime.put("queryTime", this.actorTime);
-
         for (Object row : actorList) {
             Object[] cells = (Object[]) row;
             temp1.put("actorName", String.valueOf(cells[0]));
@@ -72,7 +69,11 @@ public class DirectorService {
     public List<HashMap<String, String>> parsingGetDirectorList(String director) {
         HashMap<String, String> temp1 = new HashMap<>();
         List<HashMap<String, String>> result = new ArrayList<>();
+
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Object> directorList = this.directorRepository.getDirectorList(director);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.directorTime = endTime - startTime;
 
         for (Object row : directorList) {
             Object[] cells = (Object[]) row;
@@ -100,5 +101,9 @@ public class DirectorService {
 
     public long getActorTime() {
         return actorTime;
+    }
+
+    public long getDirectorTime() {
+        return directorTime;
     }
 }

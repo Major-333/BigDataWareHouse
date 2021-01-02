@@ -14,6 +14,8 @@ import java.util.List;
 public class ActorService {
 
     private final ActorRepository actorRepository;
+    private long directorTime;
+    private long actorTime;
 
     public ActorService(ActorRepository actorRepository) {
         this.actorRepository = actorRepository;
@@ -38,7 +40,12 @@ public class ActorService {
     public List<HashMap<String, String>> parsingGetActorList(String actor) {
         HashMap<String, String> temp1 = new HashMap<>();
         List<HashMap<String, String>> result = new ArrayList<>();
+
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Object> actorList = this.actorRepository.getActorList(actor);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.actorTime = endTime - startTime;
+
 
         for (Object row : actorList) {
             Object[] cells = (Object[]) row;
@@ -52,7 +59,11 @@ public class ActorService {
     public List<HashMap<String, String>> parsingGetDirectorList(String actor) {
         HashMap<String, String> temp1 = new HashMap<>();
         List<HashMap<String, String>> result = new ArrayList<>();
+
+        long startTime = System.currentTimeMillis();    //获取开始时间
         List<Object> directorList = this.actorRepository.getDirectorList(actor);
+        long endTime = System.currentTimeMillis();    //获取开始时间
+        this.directorTime = endTime - startTime;
 
         for (Object row : directorList) {
             Object[] cells = (Object[]) row;
@@ -77,5 +88,11 @@ public class ActorService {
         return temp1;
     }
 
+    public long getDirectorTime() {
+        return directorTime;
+    }
 
+    public long getActorTime() {
+        return actorTime;
+    }
 }
