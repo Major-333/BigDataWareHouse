@@ -33,16 +33,16 @@ public class RelationQuery implements AutoCloseable{
                 public List<Record> execute(Transaction transaction) {
                     Result result;
                     if(startLabel.equals("Actor") && endLabel.equals("Actor")){
-                        result = transaction.run("match (d:Actor)-[r:actor_actor]-(a:Actor) where a.actor=$data return d.actor as name, r.count as count;",
+                        result = transaction.run("match (d:Actor)-[r:actor_actor]-(a:Actor) where a.actor=$data return d.actor as name, r.count as count order by count limit 200;",
                                 parameters("data", startName));
                     } else if (startLabel.equals("Actor") && endLabel.equals("Director")){
-                        result = transaction.run("match (d:Director)-[r:actor_director]-(a:Actor) where a.actor=$data return d.director as name, r.count as count;",
+                        result = transaction.run("match (d:Director)-[r:actor_director]-(a:Actor) where a.actor=$data return d.director as name, r.count as count order by count limit 200;",
                                 parameters("data", startName));
                     } else if (startLabel.equals("Director") && endLabel.equals("Actor")){
-                        result = transaction.run("match (d:Actor)-[r:actor_director]-(a:Director) where a.director=$data return d.actor as name, r.count as count;",
+                        result = transaction.run("match (d:Actor)-[r:actor_director]-(a:Director) where a.director=$data return d.actor as name, r.count as count order by count limit 200;",
                                 parameters("data", startName));
                     } else if (startLabel.equals("Director") && endLabel.equals("Director")){
-                        result = transaction.run("match (d:Director)-[r:director_director]-(a:Director) where a.director=$data return d.director as name, r.count as count;",
+                        result = transaction.run("match (d:Director)-[r:director_director]-(a:Director) where a.director=$data return d.director as name, r.count as count order by count limit 200;",
                                 parameters("data", startName));
                     } else {
                         return new ArrayList<>();

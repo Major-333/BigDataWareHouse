@@ -71,11 +71,11 @@ public class StatisticsQuery implements AutoCloseable{
                         case "equal":
                             if (scoreType.equals("score")){
                                 result = transaction.run("match (a:Movie) where a.score=$score " +
-                                        "return a.score_count as count;",
+                                        "return a.score_count as count order by count limit 200;",
                                         parameters("score", score));
                             } else if (scoreType.equals("emotion_score")) {
                                 result = transaction.run("match (a:Movie) where a.emotion_score=$score " +
-                                        "return a.emotion_count as count;",
+                                        "return a.emotion_count as count order by count limit 200;",
                                         parameters("score", score));
                             } else {
                                 return new ArrayList<>();
@@ -84,11 +84,11 @@ public class StatisticsQuery implements AutoCloseable{
                         case "greater":
                             if (scoreType.equals("score")){
                                 result = transaction.run("match (a:Movie) where a.score>$score " +
-                                                "return distinct a.score as score, a.score_count as count;",
+                                                "return distinct a.score as score, a.score_count as count order by count limit 200;",
                                         parameters("score", score));
                             } else if (scoreType.equals("emotion_score")) {
                                 result = transaction.run("match (a:Movie) where a.emotion_score>$score " +
-                                                "return distinct a.emotion_score as score,a.emotion_count as count;",
+                                                "return distinct a.emotion_score as score,a.emotion_count as count order by count limit 200;",
                                         parameters("score", score));
                             } else {
                                 return new ArrayList<>();
@@ -97,11 +97,11 @@ public class StatisticsQuery implements AutoCloseable{
                         case "less":
                             if (scoreType.equals("score")){
                                 result = transaction.run("match (a:Movie) where a.score<$score " +
-                                                "return distinct a.score as score,a.score_count as count;",
+                                                "return distinct a.score as score,a.score_count as count order by count limit 200;",
                                         parameters("score", score));
                             } else if (scoreType.equals("emotion_score")) {
                                 result = transaction.run("match (a:Movie) where a.emotion_score<$score " +
-                                                "return distinct a.emotion_score as score,a.emotion_count as count;",
+                                                "return distinct a.emotion_score as score,a.emotion_count as count order by count limit 200;",
                                         parameters("score", score));
                             } else {
                                 return new ArrayList<>();
@@ -128,10 +128,10 @@ public class StatisticsQuery implements AutoCloseable{
                     Result result;
                     if (scoreType.equals("score")){
                         result = transaction.run("match (a:Movie) return distinct a.score as score," +
-                                " a.score_count as count;");
+                                " a.score_count as count order by count limit 200;");
                     } else if (scoreType.equals("emotion_score")) {
                         result = transaction.run("match (a:Movie) return distinct a.emotion_score as score," +
-                                " a.emotion_count as count;");
+                                " a.emotion_count as count order by count limit 200;");
                     } else {
                         return new ArrayList<>();
                     }

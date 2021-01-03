@@ -34,15 +34,15 @@ public class TimeQuery implements AutoCloseable{
                     Result result;
                     switch (cmp) {
                         case "equal":
-                            result = transaction.run("match(t:Time) where t.year=$year return sum(t.year_count) as count",
+                            result = transaction.run("match(t:Time) where t.year=$year return sum(t.year_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year)));
                             break;
                         case "greater":
-                            result = transaction.run("match(t:Time) where t.year>$year return sum(t.year_count) as count",
+                            result = transaction.run("match(t:Time) where t.year>$year return sum(t.year_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year)));
                             break;
                         case "less":
-                            result = transaction.run("match(t:Time) where t.year<$year return sum(t.year_count) as count",
+                            result = transaction.run("match(t:Time) where t.year<$year return sum(t.year_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year)));
                             break;
                         default:
@@ -75,17 +75,17 @@ public class TimeQuery implements AutoCloseable{
                     Result result;
                     switch (cmp) {
                         case "equal":
-                            result = transaction.run("match(t:Time) where t.year=$year and t.season=$season return sum(t.season_count) as count",
+                            result = transaction.run("match(t:Time) where t.year=$year and t.season=$season return sum(t.season_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "season", Integer.valueOf(season)));
                             break;
                         case "greater":
                             result = transaction.run("match(t:Time) where t.year>$year or " +
-                                            "(t.year=$year and t.season>$season) return sum(t.season_count) as count",
+                                            "(t.year=$year and t.season>$season) return sum(t.season_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "season", Integer.valueOf(season)));
                             break;
                         case "less":
                             result = transaction.run("match(t:Time) where t.year<$year or " +
-                                            "(t.year=$year and t.season<$season) return sum(t.season_count) as count",
+                                            "(t.year=$year and t.season<$season) return sum(t.season_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "season", Integer.valueOf(season)));
                             break;
                         default:
@@ -118,17 +118,17 @@ public class TimeQuery implements AutoCloseable{
                     Result result;
                     switch (cmp) {
                         case "equal":
-                            result = transaction.run("match(t:Time) where t.year=$year and t.month=$month return sum(t.month_count) as count",
+                            result = transaction.run("match(t:Time) where t.year=$year and t.month=$month return sum(t.month_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "month", Integer.valueOf(month)));
                             break;
                         case "greater":
                             result = transaction.run("match(t:Time) where t.year>$year or " +
-                                            "(t.year=$year and t.month>$month) return sum(t.month_count) as count",
+                                            "(t.year=$year and t.month>$month) return sum(t.month_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "month", Integer.valueOf(month)));
                             break;
                         case "less":
                             result = transaction.run("match(t:Time) where t.year<$year or " +
-                                            "(t.year=$year and t.month<$month) return sum(t.month_count) as count",
+                                            "(t.year=$year and t.month<$month) return sum(t.month_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "month", Integer.valueOf(month)));
                             break;
                         default:
@@ -156,19 +156,19 @@ public class TimeQuery implements AutoCloseable{
                     Result result;
                     switch (cmp) {
                         case "equal":
-                            result = transaction.run("match(t:Time) where t.year=$year and t.month=$month and t.day=day return sum(t.day_count) as count",
+                            result = transaction.run("match(t:Time) where t.year=$year and t.month=$month and t.day=day return sum(t.day_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "month", Integer.valueOf(month), "day", Integer.valueOf(day)));
                             break;
                         case "greater":
                             result = transaction.run("match(t:Time) where t.year>$year or " +
                                             "(t.year=$year and t.month>$month) or" +
-                                            "(t.year=$year and t.month=$month and t.day>$day) return sum(t.day_count) as count",
+                                            "(t.year=$year and t.month=$month and t.day>$day) return sum(t.day_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "month", Integer.valueOf(month), "day", Integer.valueOf(day)));
                             break;
                         case "less":
                             result = transaction.run("match(t:Time) where t.year<$year or " +
                                             "(t.year=$year and t.month<$month) or" +
-                                            "(t.year=$year and t.month=$month and t.day<$day) return sum(t.day_count) as count",
+                                            "(t.year=$year and t.month=$month and t.day<$day) return sum(t.day_count) as count order by count limit 200;",
                                     parameters("year", Integer.valueOf(year), "month", Integer.valueOf(month), "day", Integer.valueOf(day)));
                             break;
                         default:

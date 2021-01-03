@@ -33,7 +33,7 @@ public class SimpleQuery implements AutoCloseable{
                 public List<Record> execute(Transaction transaction) {
                     Result result = transaction.run("match (a:Movie) where a.title=$title return " +
                                     "a.product_id as product_id, a.score as score, a.emotion_score as emotion_score, " +
-                                    "a.title as title;",
+                                    "a.title as title limit 200;",
                             parameters("title", title));
                     List<Record> resultList = result.list();
                     System.out.println(resultList);
@@ -54,7 +54,7 @@ public class SimpleQuery implements AutoCloseable{
                 public List<Record> execute(Transaction transaction) {
                     Result result = transaction.run("match (d:Director)-[]-(a:Movie) where d.director=$director return " +
                                     "a.product_id as product_id, a.score as score, a.emotion_score as emotion_score, " +
-                                    "a.title as title;",
+                                    "a.title as title limit 200;",
                             parameters("director", director));
                     List<Record> resultList = result.list();
                     System.out.println(resultList);
@@ -75,7 +75,7 @@ public class SimpleQuery implements AutoCloseable{
                 public List<Record> execute(Transaction transaction) {
                     Result result = transaction.run("match (d:Actor)-[]-(a:Movie) where d.actor=$actor return " +
                                     "a.product_id as product_id, a.score as score, a.emotion_score as emotion_score, " +
-                                    "a.title as title;",
+                                    "a.title as title limit 200;",
                             parameters("actor", actor));
                     List<Record> resultList = result.list();
                     System.out.println(resultList);
@@ -96,7 +96,7 @@ public class SimpleQuery implements AutoCloseable{
                 public List<Record> execute(Transaction transaction) {
                     Result result = transaction.run("match (d:Label)-[]-(a:Movie) where d.label=$label return " +
                                     "a.product_id as product_id, a.score as score, a.emotion_score as emotion_score, " +
-                                    "a.title as title;",
+                                    "a.title as title limit 200;",
                             parameters("label", label));
                     List<Record> resultList = result.list();
                     System.out.println(resultList);
@@ -123,19 +123,19 @@ public class SimpleQuery implements AutoCloseable{
                         case "equal":
                             result = transaction.run("match (a:Movie) where a." + scoreType + "=$score return " +
                                             "a.product_id as product_id, a.score as score, a.emotion_score as emotion_score, " +
-                                            "a.title as title;",
+                                            "a.title as title limit 200;",
                                     parameters("score", Integer.valueOf(score.toString())));
                             break;
                         case "greater":
                             result = transaction.run("match (a:Movie) where a." + scoreType + ">"+score+" return " +
                                             "a.product_id as product_id, a.score as score, a.emotion_score as emotion_score, " +
-                                            "a.title as title;",
+                                            "a.title as title limit 200;",
                                     parameters("score", Integer.valueOf(score.toString())));
                             break;
                         case "less":
                             String cmd = "match (a:Movie) where a." + scoreType + "<"+score+" return " +
                                     "a.product_id as product_id, a.score as score, a.emotion_score as emotion_score, " +
-                                    "a.title as title;";
+                                    "a.title as title limit 200;";
                             result = transaction.run(cmd);
                             break;
                         default:
