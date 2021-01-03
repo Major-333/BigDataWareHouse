@@ -531,7 +531,7 @@ CREATE PROCEDURE find_actor_by_director(IN dir varchar(255))
 BEGIN
     select actor_name, count(product_id) cooperation
     from actor_movie
-             natural join director
+            join director on director.product_id = actor_movie.product_id
     where director_name = dir
     group by actor_name
     order by cooperation;
@@ -561,7 +561,7 @@ CREATE PROCEDURE find_director_by_actor(IN act varchar(255))
 BEGIN
     select director_name, count(product_id) cooperation
     from actor_movie
-             natural join director
+             join director on director.product_id = actor_movie.product_id
     where actor_name = act
     group by director_name
     order by cooperation;
