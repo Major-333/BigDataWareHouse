@@ -105,7 +105,8 @@ BEGIN
     select director_name, movie_count, product_id, title, emotion_score_emotion_score, score_score, time_time_id
     from director
              natural join movie
-    where director_name = dir;
+    where director_name = dir
+    limit 20;
 end $$
 DELIMITER ;
 
@@ -117,7 +118,8 @@ BEGIN
     select actor_name, movie_count, product_id, title, emotion_score_emotion_score, score_score, time_time_id
     from actor_movie
              natural join movie
-    where actor_name = act;
+    where actor_name = act
+    limit 20;
 end $$
 DELIMITER ;
 
@@ -129,7 +131,8 @@ BEGIN
     select label_name, movie_count, product_id, title, emotion_score_emotion_score, score_score, time_time_id
     from label_movie
              natural join movie
-    where label_name = lab;
+    where label_name = lab
+    limit 20;
 end $$
 DELIMITER ;
 
@@ -197,7 +200,6 @@ BEGIN
         select count
         from emotion_score
         where emotion_score = sco;
-
     END IF;
 END $$
 DELIMITER ;
@@ -238,7 +240,8 @@ BEGIN
              natural join director
     where director_name = dir
     group by actor_name
-    order by cooperation;
+    order by cooperation
+    limit 20;
 END $$
 DELIMITER ;
 
@@ -253,7 +256,8 @@ BEGIN
     where D1.director_name = dir
       and D2.director_name <> dir
     group by D2.director_name
-    order by cooperation;
+    order by cooperation
+    limit 20;
 END $$
 DELIMITER ;
 
@@ -268,7 +272,8 @@ BEGIN
              natural join director
     where actor_name = act
     group by director_name
-    order by cooperation;
+    order by cooperation
+    limit 20;
 END $$
 DELIMITER ;
 
@@ -285,7 +290,8 @@ BEGIN
     where A1.actor_name = act
       and A2.actor_name <> act
     group by A2.actor_name
-    order by cooperation;
+    order by cooperation
+    limit 20;
 END $$
 DELIMITER ;
 
@@ -401,7 +407,8 @@ BEGIN
     select director_name, movie_count, product_id, title, emotion_score_emotion_score, score_score, time_time_id
     from director
              natural join movie
-    where director_name = dir;
+    where director_name = dir
+    limit 20;
 end $$
 DELIMITER ;
 
@@ -413,7 +420,8 @@ BEGIN
     select actor_name, movie_count, product_id, title, emotion_score_emotion_score, score_score, time_time_id
     from actor_movie
              natural join movie
-    where actor_name = act;
+    where actor_name = act
+    limit 20;
 end $$
 DELIMITER ;
 
@@ -425,7 +433,8 @@ BEGIN
     select label_name, movie_count, product_id, title, emotion_score_emotion_score, score_score, time_time_id
     from label_movie
              natural join movie
-    where label_name = lab;
+    where label_name = lab
+    limit 20;
 end $$
 DELIMITER ;
 
@@ -529,7 +538,7 @@ drop procedure if exists find_actor_by_director;
 DELIMITER $$
 CREATE PROCEDURE find_actor_by_director(IN dir varchar(255))
 BEGIN
-    select actor_name, count(product_id) cooperation
+    select actor_name, count(actor_movie.product_id) cooperation
     from actor_movie
             join director on director.product_id = actor_movie.product_id
     where director_name = dir
@@ -559,7 +568,7 @@ drop procedure if exists find_director_by_actor;
 DELIMITER $$
 CREATE PROCEDURE find_director_by_actor(IN act varchar(255))
 BEGIN
-    select director_name, count(product_id) cooperation
+    select director_name, count(actor_movie.product_id) cooperation
     from actor_movie
              join director on director.product_id = actor_movie.product_id
     where actor_name = act
@@ -584,5 +593,4 @@ BEGIN
     order by cooperation;
 END $$
 DELIMITER ;
-
 
