@@ -73,14 +73,59 @@ https://docs.docker.com/compose/install/
 
 
 
-## Usage
+## How to Start ETL
 
-### ETL Project
+### 🚚 Extract and Transform
 
 ```shell
 $ cd ETL/
-$ python run.py
+$ python run.py --review-extract --movie-extract --review-transform --movie-transform
 ```
+
+- ⚠️  Extract should be done before Transform
+
+  
+
+### 🚀 Load data into database
+
+```bash
+$ cd ..
+$ docker-compose up
+```
+
+- **Neo4j-db**
+
+```bash
+$ docker exec -it neo4j-db /bin/bash
+$ cat /load/create_indexes.cql | cypher-shell -u neo4j -p {your password}
+$ cat /load/load_data.cql | cypher-shell -u neo4j -p {your password}
+$ exit
+```
+
+- ⏰ **you can check your neo4j-db via localhost:7474 in browser** 
+
+
+
+- **Mysql-db**
+
+```bash
+$ docker exec -it mysql-db /bin/bash
+$ cat /script/createdatabase.sql | mysql -u root -p
+$ exit
+```
+
+- ⚠️ **next, your need to use dw_backend to create table**
+
+```bash
+$ docker exec -it mysql-db /bin/bash
+$ cat /script/dataloader.sql | mysql -u root -p
+$ cat /script/procedure.sql.sql | mysql -u root -p
+$ exit
+```
+
+
+
+## How to Start Database
 
 ### Database
 

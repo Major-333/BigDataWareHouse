@@ -21,9 +21,12 @@
 
 ## how to start
 
+#### 🚀 1. Extract and Transform
+
 ```bash
 $ python run.py --review-extract --movie-extract --review-transform --movie-transform
 ```
 
-- 🎉 Extract should be done before Transform
+- ⚠️ Extract should be done before Transform
+
 
