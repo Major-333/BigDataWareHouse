@@ -53,7 +53,8 @@ set t.day_count = toInteger(row.day_count);
 using periodic commit 500
 load csv with headers from 'file:///movie_schema' as row
 match (m:Movie) where m.product_id = row.product_id
-match (t:Time) where t.day_id = row.day_id
+match (t:Time) where toInteger(t.day_id) = toInteger(row.day_id)
+set m.day_id = toInteger(row.day_id)
 // merge (m) -[:movie_time]->(t)
 merge (t) -[:time_movie]->(m);
 
