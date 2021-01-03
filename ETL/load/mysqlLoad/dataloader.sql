@@ -76,10 +76,3 @@ load data infile '/dw_data/mysqlData/review_schema'
     ignore 1 lines
     (movie_product_id, user_user_id, up, down, score, time_stamp, emotion_score, id);
 
-    ignore into table review
-    fields terminated by ','
-    OPTIONALLY ENCLOSED BY '"'
-    lines terminated by '\n'
-    ignore 1 lines
-    (movie_product_id, user_user_id, up, down, score, time_stamp, emotion_score, id);
-
