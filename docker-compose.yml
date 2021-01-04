@@ -57,6 +57,7 @@ services:
         image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
         volumes:
             - ./hive/datanode:/hadoop/dfs/data
+            - ./hive_data/data:/hadoop-data
         env_file:
             - ./hivescript/hadoop-hive.env
         environment:
@@ -65,6 +66,8 @@ services:
             - "50075:50075"
     hive-server:
         image: bde2020/hive:2.3.2-postgresql-metastore
+        volumes:
+             ./hive_data/local_data:/hadoop-data
         env_file:
             - ./hivescript/hadoop-hive.env
         environment:
@@ -72,6 +75,7 @@ services:
             SERVICE_PRECONDITION: "hive-metastore:9083"
         ports:
             - "10000:10000"
+            - "10002:10002"
     hive-metastore:
         image: bde2020/hive:2.3.2-postgresql-metastore
         env_file:
