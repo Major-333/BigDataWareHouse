@@ -24,5 +24,4 @@
 /mysql/
 
 # ignore hive
-/hive/datanode/
-/hive/namenode/
+/hive/
