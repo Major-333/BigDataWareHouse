@@ -1,4 +1,4 @@
-FROM neo4j:4.0.3
+FROM neo4j:4.2.1
 
 ENV HOME=/home/major333
 WORKDIR = /major333/workspace
